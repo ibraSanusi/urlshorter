@@ -1,18 +1,13 @@
 // import { LatestPost } from "@/app/_components/post";
 import { auth } from "@/server/auth";
 import { api, HydrateClient } from "@/trpc/server";
-import Button from "./_components/Button";
-import { SlugCard } from "./_components/SlugCard";
-import CrossIcon from "./_components/icons/CrossIcon";
-import AvatarIcon from "./_components/icons/AvatarIcon";
-import SearchingInput from "./_components/SearchingInput";
-import ShorterModal from "./_components/ShorterModal";
+import { SlugCard } from "@/app/_components/SlugCard";
+import CrossIcon from "@/app/_components/icons/CrossIcon";
+import AvatarIcon from "@/app/_components/icons/AvatarIcon";
+import SearchingInput from "@/app/_components/SearchingInput";
+import Link from "next/link";
 
 export default async function Home() {
-  // const hello = await api.slug.create({
-  //   slug: "hg658",
-  //   url: "https://www.linkedin.com/in/ibrahim-ayodeji-sanusi-0208112a7/",
-  // });
   const session = await auth();
 
   if (session?.user) {
@@ -32,10 +27,13 @@ export default async function Home() {
         <header className="flex xl:justify-between">
           <SearchingInput />
 
-          <Button>
+          <Link
+            className="flex w-fit flex-row items-center gap-2 rounded-[5px] bg-white px-[11px] py-[8px] font-bold text-[#386641] transition-transform hover:scale-105 hover:cursor-pointer hover:bg-secondary hover:text-principal"
+            href="/create"
+          >
             <CrossIcon />
             Create Link
-          </Button>
+          </Link>
         </header>
 
         {/* Section of main (slug cards) */}
@@ -43,8 +41,6 @@ export default async function Home() {
           {session?.user && <SlugCard />}
         </section>
       </main>
-
-      {/* <ShorterModal /> */}
     </HydrateClient>
   );
 }
