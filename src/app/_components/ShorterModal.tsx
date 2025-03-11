@@ -8,8 +8,10 @@ import InputText from "./InputText";
 import Button from "./Button";
 import RandomIcon from "./icons/RandomIcon";
 import RocketIcon from "./icons/RocketIcon";
+import { useRouter } from "next/navigation";
 
 export default function ShorterModal() {
+  const router = useRouter();
   const [slug, setSlug] = useState<string>("");
   const [url, setUrl] = useState("");
   const [submit, setSubmit] = useState(false);
@@ -51,7 +53,13 @@ export default function ShorterModal() {
         {/* Header del formulario */}
         <header className="flex xl:flex-row xl:items-center xl:justify-between">
           <h2>Create new link</h2>
-          <button type="button" className="hover:cursor-pointer">
+          <button
+            onClick={() => {
+              router.back();
+            }}
+            type="button"
+            className="hover:cursor-pointer"
+          >
             <CloseIcon />
           </button>
         </header>
@@ -98,7 +106,13 @@ export default function ShorterModal() {
 
           {/* Botones */}
           <div className="flex gap-2 xl:flex-row xl:justify-end">
-            <Button type="button" className="hover:scale-100">
+            <Button
+              onClick={() => {
+                router.back();
+              }}
+              type="button"
+              className="hover:scale-100"
+            >
               Cancel
             </Button>
             <Button
