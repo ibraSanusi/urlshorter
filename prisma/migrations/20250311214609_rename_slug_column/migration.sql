@@ -11,7 +11,7 @@ CREATE TABLE "Link" (
 -- CreateTable
 CREATE TABLE "Slug" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "text" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     "linkId" INTEGER NOT NULL,
@@ -70,10 +70,10 @@ CREATE INDEX "Link_url_idx" ON "Link"("url");
 CREATE UNIQUE INDEX "Link_url_createdById_key" ON "Link"("url", "createdById");
 
 -- CreateIndex
-CREATE INDEX "Slug_text_idx" ON "Slug"("text");
+CREATE INDEX "Slug_slug_idx" ON "Slug"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Slug_text_key" ON "Slug"("text");
+CREATE UNIQUE INDEX "Slug_slug_key" ON "Slug"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");

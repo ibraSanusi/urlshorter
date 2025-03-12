@@ -1,11 +1,11 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import SettingIcon from "./icons/SettingsIcon";
-import TrashIcon from "./icons/TrashIcon";
+import SettingIcon from "@/app/_components/icons/SettingsIcon";
+import TrashIcon from "@/app/_components/icons/TrashIcon";
 
 export function SlugCard() {
-  const { data: slugs, isLoading, error } = api.slug.getAllSlugs.useQuery();
+  const { data: slugs, isLoading, error } = api.slug.getAll.useQuery();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -19,7 +19,7 @@ export function SlugCard() {
             createdById,
             id,
             linkId,
-            text,
+            slug,
             updatedAt,
             link: { url },
           }) => (
@@ -28,7 +28,7 @@ export function SlugCard() {
               className="flex rounded-lg border-[1px] border-white p-2 xl:h-[97px] xl:max-w-[680px] xl:flex-col xl:justify-between"
             >
               <header className="flex flex-row justify-between">
-                <span>{text}</span>
+                <span>/{slug}</span>
                 <div className="flex flex-row items-center gap-2">
                   <span>0 clicks</span>
                   <button>

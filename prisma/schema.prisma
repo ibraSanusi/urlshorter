@@ -32,7 +32,7 @@ model Link {
 
 model Slug {
     id        Int      @id @default(autoincrement())
-    text      String
+    slug      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -41,8 +41,8 @@ model Slug {
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
 
-    @@unique([text]) // No se pueden repetir los slugs
-    @@index([text])
+    @@unique([slug]) // No se pueden repetir los slugs
+    @@index([slug])
 }
 
 // Necessary for Next auth

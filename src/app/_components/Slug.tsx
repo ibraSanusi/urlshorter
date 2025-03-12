@@ -3,7 +3,7 @@
 import { api } from "@/trpc/react";
 
 export function AllSlugs() {
-  const { data: slugs, isLoading, error } = api.slug.getAllSlugs.useQuery();
+  const { data: slugs, isLoading, error } = api.slug.getAll.useQuery();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -11,10 +11,10 @@ export function AllSlugs() {
   return (
     <div className="w-full max-w-xs">
       {slugs?.length ? (
-        slugs.map((slug) => (
-          <div key={slug.id} className="mb-2">
-            <p className="truncate text-red-500">UrlId: {slug.linkId}</p>
-            <p className="truncate text-blue-500">Slug: {slug.text}</p>
+        slugs.map(({ id, linkId, slug }) => (
+          <div key={id} className="mb-2">
+            <p className="truncate text-red-500">UrlId: {linkId}</p>
+            <p className="truncate text-blue-500">Slug: {slug}</p>
           </div>
         ))
       ) : (

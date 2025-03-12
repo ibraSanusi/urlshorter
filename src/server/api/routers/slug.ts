@@ -30,14 +30,14 @@ export const slugRouter = createTRPCRouter({
       // Crear el slug asociado al link
       return ctx.db.slug.create({
         data: {
-          text: input.slug,
+          slug: input.slug,
           createdById: ctx.session.user.id,
           linkId: link.id, // link.id ahora está garantizado
         },
       });
     }),
 
-  getAllSlugs: protectedProcedure.query(async ({ ctx }) => {
+  getAll: protectedProcedure.query(async ({ ctx }) => {
     // Recuperar los slugs y el url y formatear la respuesta
     const slugs = await ctx.db.slug.findMany({
       include: {
@@ -49,4 +49,14 @@ export const slugRouter = createTRPCRouter({
     console.log("Slugs encontrados:", slugs);
     return slugs;
   }),
+
+  // delete: protectedProcedure.mutation(async ({ ctx }) => {
+  //   // Recuperar los slugs y el url y formatear la respuesta
+  //   const slugs = await ctx.db.slug.delete({
+  //     where: { createdById: ctx.session.user.id },
+  //   });
+
+  //   console.log("Slugs encontrados:", slugs);
+  //   return slugs;
+  // }),
 });
