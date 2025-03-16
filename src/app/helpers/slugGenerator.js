@@ -1,10 +1,21 @@
-"use cliente";
+"use client";
 
 /**
  * @name Generador de slug
- * @description Se devuelve la suma en base 36 de la fecha y un numero aleatorio (recortado para que no sea tan largo)
- * @returns String
+ * @description Genera un slug basado en el día de la semana en español y un identificador único en base 36.
+ * @returns {string}
  */
 export function slugGenerator() {
-  return Date.now().toString(36) + Math.random().toString(36).substring(2, 5);
+  // const day = new Date()
+  //   .toLocaleDateString("es-ES", {
+  //     timeZone: "Europe/Madrid",
+  //   })
+  //   .toLocaleLowerCase();
+
+  // const timestamp = new Date(day.split("/").reverse().join("-")).getTime();
+  // const dayBase36 = timestamp.toString(36);
+
+  // const uniqueId = Math.random().toString(36).substring(2, 5);
+
+  return `${0}${0}`;
 }

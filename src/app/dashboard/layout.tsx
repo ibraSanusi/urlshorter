@@ -1,9 +1,9 @@
 import "@/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { exo2 } from "@/app/ui/fonts";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -16,13 +16,11 @@ export default function DashboardLayout({
   modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="relative">
-        <TRPCReactProvider>
-          {children}
-          {modal}
-        </TRPCReactProvider>
-      </body>
-    </html>
+    <div className={`relative ${exo2.className}`}>
+      <TRPCReactProvider>
+        {children}
+        {modal}
+      </TRPCReactProvider>
+    </div>
   );
 }

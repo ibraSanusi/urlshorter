@@ -13,43 +13,35 @@ export function SlugCard() {
   return (
     <>
       {slugs?.length ? (
-        slugs.map(
-          ({
-            createdAt,
-            createdById,
-            id,
-            linkId,
-            slug,
-            updatedAt,
-            link: { url },
-          }) => (
-            <article
-              key={id} // Agrega una clave única para mejorar la eficiencia de React
-              className="flex rounded-lg border-[1px] border-white p-2 xl:h-[97px] xl:max-w-[680px] xl:flex-col xl:justify-between"
-            >
-              <header className="flex flex-row justify-between">
-                <span>/{slug}</span>
-                <div className="flex flex-row items-center gap-2">
-                  <span>0 clicks</span>
-                  <button>
-                    {/* Ícono de ajustes */}
-                    <SettingIcon />
-                  </button>
-                  <button>
-                    {/* Ícono de eliminar */}
-                    <TrashIcon />
-                  </button>
-                </div>
-              </header>
+        slugs.map(({ id, slug, link: { url } }) => (
+          <div
+            key={id} // Agrega una clave única para mejorar la eficiencia de React
+            className="flex rounded-lg border-[1px] border-white p-2 xl:h-[97px] xl:max-w-[680px] xl:flex-col xl:justify-between"
+          >
+            <header className="flex flex-row justify-between">
+              <span>/{slug}</span>
+              <div className="flex flex-row items-center gap-2">
+                <span>0 clicks</span>
+                <button>
+                  {/* Ícono de ajustes */}
+                  <SettingIcon />
+                </button>
+                <button>
+                  {/* Ícono de eliminar */}
+                  <TrashIcon />
+                </button>
+              </div>
+            </header>
 
-              <span>{url}</span>
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+              {url}
+            </span>
 
-              <footer className="w-full text-end text-sm">
-                {createdAt.toDateString()}
-              </footer>
-            </article>
-          ),
-        )
+            <footer className="w-full text-end text-sm">
+              {/* {createdAt.toDateString()} */}
+            </footer>
+          </div>
+        ))
       ) : (
         <p>No slugs found</p>
       )}

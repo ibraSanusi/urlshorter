@@ -1,5 +1,5 @@
 import React from "react";
-import SearchIcon from "./icons/SearchIcon";
+import SearchIcon from "../_components/icons/SearchIcon";
 
 export default function SearchingInput() {
   return (

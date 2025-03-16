@@ -1,11 +1,11 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import { slugGenerator } from "../helpers/slugGenerator";
+import { slugGenerator } from "@/app/helpers/slugGenerator";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "./icons/CloseIcon";
-import InputText from "./InputText";
-import Button from "./Button";
+import InputText from "@/app/ui/InputText";
+import Button from "@/app/ui/Button";
 import RandomIcon from "./icons/RandomIcon";
 import RocketIcon from "./icons/RocketIcon";
 import { useRouter } from "next/navigation";
@@ -31,11 +31,11 @@ export default function ShorterModal() {
     setError(null); // Limpiar errores previos
 
     try {
-      const hello = await mutation.mutateAsync({
+      const slugCreated = await mutation.mutateAsync({
         slug,
         url,
       });
-      console.log({ slug, url, hello });
+      console.log({ slug, url, slugCreated });
     } catch (error) {
       console.error("Error creating slug:", error);
       setError("An error occurred while creating the link.");

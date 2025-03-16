@@ -3,7 +3,7 @@ import { api, HydrateClient } from "@/trpc/server";
 import { SlugCard } from "@/app/_components/SlugCard";
 import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
-import SearchingInput from "@/app/_components/SearchingInput";
+import SearchingInput from "@/app/ui/SearchingInput";
 import Link from "next/link";
 
 export default async function Home() {
