@@ -50,13 +50,15 @@ export const slugRouter = createTRPCRouter({
     return slugs;
   }),
 
-  // delete: protectedProcedure.mutation(async ({ ctx }) => {
-  //   // Recuperar los slugs y el url y formatear la respuesta
-  //   const slugs = await ctx.db.slug.delete({
-  //     where: { createdById: ctx.session.user.id },
-  //   });
+  delete: protectedProcedure
+    .input(z.object({ slugId: z.number().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+      // Recuperar los slugs y el url y formatear la respuesta
+      const slug = await ctx.db.slug.delete({
+        where: { id: input.slugId },
+      });
 
-  //   console.log("Slugs encontrados:", slugs);
-  //   return slugs;
-  // }),
+      console.log("Slug con id :", slug, " eliminado");
+      return slug;
+    }),
 });
