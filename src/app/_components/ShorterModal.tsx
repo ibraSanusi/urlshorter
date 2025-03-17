@@ -2,12 +2,12 @@
 
 import { api } from "@/trpc/react";
 import { slugGenerator } from "@/app/helpers/slugGenerator";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import CloseIcon from "./icons/CloseIcon";
 import InputText from "@/app/ui/InputText";
 import Button from "@/app/ui/Button";
-import RandomIcon from "./icons/RandomIcon";
-import RocketIcon from "./icons/RocketIcon";
+import RandomIcon from "@/app/_components/icons/RandomIcon";
+import RocketIcon from "@/app/_components//icons/RocketIcon";
 import { useRouter } from "next/navigation";
 
 export default function ShorterModal() {
