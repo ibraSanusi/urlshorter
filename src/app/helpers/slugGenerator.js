@@ -6,16 +6,16 @@
  * @returns {string}
  */
 export function slugGenerator() {
-  // const day = new Date()
-  //   .toLocaleDateString("es-ES", {
-  //     timeZone: "Europe/Madrid",
-  //   })
-  //   .toLocaleLowerCase();
+  const day = new Date()
+    .toLocaleDateString("es-ES", {
+      timeZone: "Europe/Madrid",
+    })
+    .toLocaleLowerCase();
 
-  // const timestamp = new Date(day.split("/").reverse().join("-")).getTime();
-  // const dayBase36 = timestamp.toString(36);
+  const timestamp = new Date(day.split("/").reverse().join("-")).getTime();
+  const dayBase36 = timestamp.toString(36);
 
-  // const uniqueId = Math.random().toString(36).substring(2, 5);
+  const uniqueId = Math.random().toString(36).substring(2, 5);
 
-  return `${0}${0}`;
+  return `${dayBase36}${uniqueId}`;
 }

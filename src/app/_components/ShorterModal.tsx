@@ -3,7 +3,7 @@
 import { api } from "@/trpc/react";
 import { slugGenerator } from "@/app/helpers/slugGenerator";
 import { useState } from "react";
-import CloseIcon from "./icons/CloseIcon";
+import CloseIcon from "@/app/_components/icons/CloseIcon";
 import InputText from "@/app/ui/InputText";
 import Button from "@/app/ui/Button";
 import RandomIcon from "@/app/_components/icons/RandomIcon";
