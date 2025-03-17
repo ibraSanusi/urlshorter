@@ -3,6 +3,8 @@
 import { api } from "@/trpc/react";
 import SettingIcon from "@/app/_components/icons/SettingsIcon";
 import TrashIcon from "@/app/_components/icons/TrashIcon";
+import CopyIcon from "./icons/CopyIcon";
+import { copyToClipboard } from "../helpers/copyClipboard";
 
 export function SlugCard() {
   const { data: slugs, isLoading, error } = api.slug.getAll.useQuery();
@@ -43,6 +45,14 @@ export function SlugCard() {
               <span>/{slug}</span>
               <div className="flex flex-row items-center gap-2">
                 <span>0 clicks</span>
+                <button
+                  onClick={() => {
+                    copyToClipboard("localhost:3000/" + slug);
+                  }}
+                >
+                  {/* Ícono de copia en portapapeles */}
+                  <CopyIcon />
+                </button>
                 <button>
                   {/* Ícono de ajustes */}
                   <SettingIcon />
