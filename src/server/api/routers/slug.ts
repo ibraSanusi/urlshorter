@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
+import { link } from "fs";
 
 // Si se crea un slug y el link no existe se crea el link en la base de datos aqui
 export const slugRouter = createTRPCRouter({
@@ -49,6 +54,35 @@ export const slugRouter = createTRPCRouter({
     console.log("Slugs encontrados:", slugs);
     return slugs;
   }),
+
+  /**
+   * @description Se obtiene el link de la base de datos a partir del slug
+   */
+  getLinkBySlug: publicProcedure
+    .input(z.object({ slug: z.string().min(1) })) // Validación de entrada
+    .query(async ({ ctx, input }) => {
+      console.log({ input });
+      // Recuperar los slugs y el url y formatear la respuesta
+      const result = await ctx.db.slug.findUnique({
+        where: { slug: input.slug }, // Filtra por el slug
+        select: {
+          link: {
+            // Asumiendo que `link` es la relación que contiene el URL
+            select: {
+              url: true, // Selecciona solo el campo 'url'
+            },
+          },
+        },
+      });
+
+      if (!result?.link?.url) {
+        throw new Error("No se encontró un enlace para este slug.");
+      }
+
+      console.log("Slug encontrado:", input.slug);
+
+      return result.link.url; // Devuelve solo la URL
+    }),
 
   delete: protectedProcedure
     .input(z.object({ slugId: z.number().min(1) }))
