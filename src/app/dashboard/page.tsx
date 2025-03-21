@@ -5,6 +5,7 @@ import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
 import SearchingInput from "@/app/ui/SearchingInput";
 import LinkCustom from "@/app/ui/LinkCustom";
+import { SlugList } from "../_components/SlugList";
 
 export default async function Home() {
   const session = await auth();
@@ -34,7 +35,7 @@ export default async function Home() {
 
         {/* Section of main (slug cards) */}
         <section className="grid h-full w-full grid-cols-2 gap-4">
-          {session?.user && <SlugCard />}
+          {session?.user && <SlugList />}
         </section>
       </main>
     </HydrateClient>

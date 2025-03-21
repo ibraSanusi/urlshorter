@@ -1,52 +1,38 @@
 "use client";
 
-import { api } from "@/trpc/react";
-import { slugGenerator } from "@/app/helpers/slugGenerator";
-import { useState } from "react";
 import CloseIcon from "@/app/_components/icons/CloseIcon";
 import InputText from "@/app/ui/InputText";
 import Button from "@/app/ui/Button";
 import RandomIcon from "@/app/_components/icons/RandomIcon";
 import RocketIcon from "@/app/_components//icons/RocketIcon";
 import { useRouter } from "next/navigation";
+import { useModal } from "../hooks/useModal";
+import Modal from "../ui/Modal";
 
 export default function ShorterModal() {
   const router = useRouter();
-  const [slug, setSlug] = useState<string>("");
-  const [url, setUrl] = useState("");
-  const [submit, setSubmit] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  //   Es necesario crear una mutacion ya que este es un componente de cliente. En el servidor con api.slug.create es suficiente
-  const mutation = api.slug.create.useMutation();
-
-  const handleRandomize = () => {
-    const newSlug = slugGenerator();
-    setSlug(newSlug);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmit(true);
-    setError(null); // Limpiar errores previos
-
-    try {
-      const slugCreated = await mutation.mutateAsync({
-        slug,
-        url,
-      });
-      console.log({ slug, url, slugCreated });
-    } catch (error) {
-      console.error("Error creating slug:", error);
-      setError("An error occurred while creating the link.");
-    } finally {
-      setSubmit(false);
-    }
-  };
+  const {
+    handleRandomize,
+    handleSubmit,
+    addSlug,
+    addUrl,
+    error,
+    slug,
+    submit,
+    url,
+  } = useModal();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm backdrop-brightness-150">
+    <Modal
+      onClose={() => {
+        router.back();
+      }}
+    >
       <form
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         onSubmit={handleSubmit}
         className="flex h-full w-full gap-10 rounded-lg bg-principal p-8 xl:max-h-[522px] xl:max-w-[513px] xl:flex-col"
       >
@@ -76,7 +62,7 @@ export default function ShorterModal() {
                 name="destinationLink"
                 placeholder="https://"
                 value={url}
-                onChange={(e) => setUrl(e.target.value)}
+                onChange={(e) => addUrl(e.target.value)}
               />
             </div>
 
@@ -90,7 +76,7 @@ export default function ShorterModal() {
                   name="shortLink"
                   className="w-full rounded-r-none placeholder:text-white autofill:bg-transparent"
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={(e) => addSlug(e.target.value)}
                 />
                 <Button
                   onClick={handleRandomize}
@@ -129,6 +115,6 @@ export default function ShorterModal() {
         {/* Mensaje de error */}
         {error && <p className="text-red-500">{error}</p>}
       </form>
-    </div>
+    </Modal>
   );
 }
