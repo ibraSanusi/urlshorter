@@ -1,10 +1,10 @@
 import { auth } from "@/server/auth";
 import { api, HydrateClient } from "@/trpc/server";
-import { SlugCard } from "@/app/_components/SlugCard";
 import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
 import SearchingInput from "@/app/ui/SearchingInput";
-import Link from "next/link";
+import LinkCustom from "@/app/ui/LinkCustom";
+import { SlugList } from "@/app/_components/SlugList";
 
 export default async function Home() {
   const session = await auth();
@@ -26,18 +26,15 @@ export default async function Home() {
         <header className="flex xl:justify-between">
           <SearchingInput />
 
-          <Link
-            className="flex w-fit flex-row items-center gap-2 rounded-[5px] bg-white px-[11px] py-[8px] font-bold text-[#386641] transition-transform hover:scale-105 hover:cursor-pointer hover:bg-secondary hover:text-principal"
-            href="/dashboard/create"
-          >
+          <LinkCustom title="create_link" href="/dashboard/create">
             <CrossIcon />
             Create Link
-          </Link>
+          </LinkCustom>
         </header>
 
         {/* Section of main (slug cards) */}
         <section className="grid h-full w-full grid-cols-2 gap-4">
-          {session?.user && <SlugCard />}
+          {session?.user && <SlugList />}
         </section>
       </main>
     </HydrateClient>
