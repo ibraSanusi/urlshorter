@@ -11,6 +11,10 @@ import ModalFooter from "@/app/_components/ModalFooter";
 export default function ShorterModal() {
   const router = useRouter();
 
+  const closeModal = () => {
+    router.back();
+  };
+
   const {
     handleRandomize,
     handleSubmit,
@@ -23,13 +27,9 @@ export default function ShorterModal() {
   } = useModal();
 
   return (
-    <ModalOverlay
-      onClose={() => {
-        router.back();
-      }}
-    >
+    <ModalOverlay onClose={closeModal}>
       <Modal error={error} handleSubmit={handleSubmit}>
-        <ModalHeader router={router} title="Create new Slug" />
+        <ModalHeader onClose={closeModal} title="Create new Slug" />
         <ModalInputs
           addSlug={addSlug}
           addUrl={addUrl}
@@ -38,7 +38,7 @@ export default function ShorterModal() {
           url={url}
         />
 
-        <ModalFooter router={router} submit={submit} />
+        <ModalFooter onClose={closeModal} submit={submit} />
       </Modal>
     </ModalOverlay>
   );

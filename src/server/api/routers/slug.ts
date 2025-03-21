@@ -4,7 +4,6 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { link } from "fs";
 
 // Si se crea un slug y el link no existe se crea el link en la base de datos aqui
 export const slugRouter = createTRPCRouter({

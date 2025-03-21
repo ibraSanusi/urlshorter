@@ -1,23 +1,16 @@
 import React from "react";
 import RocketIcon from "@/app/_components//icons/RocketIcon";
 import Button from "@/app/ui/Button";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface Props {
-  router: AppRouterInstance;
+  onClose?: () => void;
   submit: boolean;
 }
 
-export default function ModalFooter({ router, submit }: Props) {
+export default function ModalFooter({ onClose, submit }: Props) {
   return (
     <div className="flex gap-2 xl:flex-row xl:justify-end">
-      <Button
-        onClick={() => {
-          router.back();
-        }}
-        type="button"
-        className="hover:scale-100"
-      >
+      <Button onClick={onClose} type="button" className="hover:scale-100">
         Cancel
       </Button>
       <Button

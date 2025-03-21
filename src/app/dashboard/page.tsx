@@ -1,6 +1,5 @@
 import { auth } from "@/server/auth";
 import { api, HydrateClient } from "@/trpc/server";
-import { SlugCard } from "@/app/_components/SlugCard";
 import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
 import SearchingInput from "@/app/ui/SearchingInput";
