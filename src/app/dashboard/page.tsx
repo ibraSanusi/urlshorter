@@ -4,7 +4,7 @@ import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
 import SearchingInput from "@/app/ui/SearchingInput";
 import LinkCustom from "@/app/ui/LinkCustom";
-import { SlugList } from "../_components/SlugList";
+import { SlugList } from "@/app/_components/SlugList";
 
 export default async function Home() {
   const session = await auth();

@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface Props {
   children: ReactNode;

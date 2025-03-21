@@ -1,8 +1,8 @@
 "use client";
 
 // components/SlugList.tsx (Solo renderiza la lista de slugs)
-import { useSlugs } from "../hooks/useSlugs";
-import { SlugCard } from "./SlugCard";
+import { useSlugs } from "@/app/hooks/useSlugs";
+import { SlugCard } from "@/app/_components/SlugCard";
 
 export function SlugList() {
   const { slugs, isLoading, error, deleteSlug } = useSlugs();

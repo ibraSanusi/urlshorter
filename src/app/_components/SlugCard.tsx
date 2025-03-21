@@ -4,7 +4,7 @@
 import SettingIcon from "@/app/_components/icons/SettingsIcon";
 import TrashIcon from "@/app/_components/icons/TrashIcon";
 import CopyIcon from "@/app/_components/icons/CopyIcon";
-import { copyToClipboard } from "../helpers/copyClipboard";
+import { copyToClipboard } from "@/app/helpers/copyClipboard";
 
 export function SlugCard({
   id,
