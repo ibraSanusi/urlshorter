@@ -1,5 +1,5 @@
-import ShorterModal from "@/app/_components/ShorterModal";
+import CreateModal from "@/app/_components/CreateModal";
 
 export default function Open() {
-  return <ShorterModal />;
+  return <CreateModal />;
 }

@@ -4,6 +4,8 @@
 import SettingIcon from "@/app/_components/icons/SettingsIcon";
 import TrashIcon from "@/app/_components/icons/TrashIcon";
 import CopyIcon from "@/app/_components/icons/CopyIcon";
+import Link from "next/link";
+
 import { copyToClipboard } from "@/app/helpers/copyClipboard";
 
 export function SlugCard({
@@ -17,21 +19,24 @@ export function SlugCard({
   url: string;
   onDelete: (id: number) => void;
 }) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const urlToCopy = `${baseUrl}/${slug}`;
+
   return (
     <section className="flex rounded-lg border p-2 xl:h-[97px] xl:max-w-[680px] xl:flex-col xl:justify-between">
       <header className="flex justify-between">
         <span>/{slug}</span>
         <div className="flex items-center gap-2">
           <span>0 clicks</span>
-          <button onClick={() => copyToClipboard("localhost:3000/" + slug)}>
+          <button onClick={() => copyToClipboard(urlToCopy)}>
             <CopyIcon />
           </button>
-          <button>
+          <Link href={`/dashboard/edit/${id}`}>
             <SettingIcon />
-          </button>
-          <button onClick={() => onDelete(id)}>
+          </Link>
+          <Link href={`/dashboard/delete/${id}`}>
             <TrashIcon />
-          </button>
+          </Link>
         </div>
       </header>
       <span className="overflow-hidden text-ellipsis whitespace-nowrap">

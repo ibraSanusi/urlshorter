@@ -1,14 +1,15 @@
 import React from "react";
 import InputText from "@/app/ui/InputText";
-import Button from "@/app/ui/Button";
+import { Button } from "@/app/ui/Button";
 import RandomIcon from "@/app/_components/icons/RandomIcon";
 
 interface Props {
   handleRandomize: () => void;
   addSlug: (slug: string) => void;
   addUrl: (url: string) => void;
-  slug: string;
-  url: string;
+  editMode?: boolean;
+  slug?: string;
+  url?: string;
 }
 
 export default function ModalInputs({
@@ -17,6 +18,7 @@ export default function ModalInputs({
   handleRandomize,
   slug,
   url,
+  editMode = false,
 }: Props) {
   return (
     <section className="flex h-full gap-4 xl:flex-col xl:justify-between">
@@ -47,9 +49,10 @@ export default function ModalInputs({
               onChange={(e) => addSlug(e.target.value)}
             />
             <Button
+              disabled={editMode}
               onClick={handleRandomize}
               type="button"
-              className="rounded-l-none hover:scale-100"
+              className={`rounded-l-none ${editMode ? "cursor-not-allowed opacity-50" : ""}`}
             >
               <RandomIcon />
               Randomize

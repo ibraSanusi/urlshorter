@@ -83,12 +83,54 @@ export const slugRouter = createTRPCRouter({
       return result.link.url; // Devuelve solo la URL
     }),
 
+  getUlrAndSlugBySlugId: protectedProcedure
+    .input(z.object({ slugId: z.number().min(1) }))
+    .query(async ({ ctx, input }) => {
+      // Recuperar los slugs y el url y formatear la respuesta
+      const result = await ctx.db.slug.findUnique({
+        include: {
+          link: true, // Carga la relación con la tabla `link`
+        },
+        where: { id: input.slugId },
+      });
+
+      const urlAndSlug = {
+        url: result?.link?.url,
+        slug: result?.slug,
+      };
+
+      console.log("Slug encontrado con id :", input.slugId);
+      return urlAndSlug;
+    }),
+
   delete: protectedProcedure
     .input(z.object({ slugId: z.number().min(1) }))
     .mutation(async ({ ctx, input }) => {
       // Recuperar los slugs y el url y formatear la respuesta
       const slug = await ctx.db.slug.delete({
         where: { id: input.slugId },
+      });
+
+      console.log("Slug con id :", slug, " eliminado");
+      return slug;
+    }),
+
+  update: protectedProcedure
+    .input(z.object({ slug: z.string().min(1), url: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+      // Recuperar los slugs y el url y formatear la respuesta
+      const slug = await ctx.db.slug.update({
+        include: {
+          link: true,
+        },
+        where: { slug: input.slug },
+        data: {
+          link: {
+            update: {
+              url: input.url,
+            },
+          },
+        },
       });
 
       console.log("Slug con id :", slug, " eliminado");
