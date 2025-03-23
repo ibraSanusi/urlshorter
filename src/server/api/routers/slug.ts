@@ -118,7 +118,7 @@ export const slugRouter = createTRPCRouter({
   update: protectedProcedure
     .input(z.object({ slug: z.string().min(1), url: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      // Recuperar los slugs y el url y formatear la respuesta
+      // Actualizar el link asociado al slug
       const slug = await ctx.db.slug.update({
         include: {
           link: true,

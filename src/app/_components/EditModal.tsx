@@ -12,6 +12,7 @@ import { useModal } from "@/app/hooks/useModal";
 import { Button } from "@/app/ui/Button";
 import { api } from "@/trpc/react";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 export default function EditModal() {
   const router = useRouter();
@@ -32,11 +33,16 @@ export default function EditModal() {
     handleRandomize,
     handleCreate,
     addSlug,
+    addNewUrl,
     addUrl,
-    ableUpdate,
+    newUrl,
     updateable,
     error,
   } = useModal();
+
+  useEffect(() => {
+    if (url) addUrl(url);
+  }, [url]);
 
   return slug && url ? (
     <ModalOverlay onClose={closeModal}>
@@ -45,10 +51,10 @@ export default function EditModal() {
         <ModalInputs
           editMode={true}
           addSlug={addSlug}
-          addUrl={addUrl}
+          addUrl={addNewUrl}
           handleRandomize={handleRandomize}
           slug={slug}
-          url={url}
+          url={newUrl}
         />
 
         <ModalFooter>

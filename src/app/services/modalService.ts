@@ -8,3 +8,10 @@ export const modalService = {
   delete: () => api.slug.delete.useMutation(),
   update: () => api.slug.update.useMutation(),
 };
+
+export interface ModalServiceType {
+  create: () => {
+    mutateAsync: (data: { slug: string; url: string }) => Promise<unknown>;
+  };
+  delete: () => { mutateAsync: (data: { slugId: number }) => Promise<unknown> };
+}

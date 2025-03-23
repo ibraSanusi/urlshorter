@@ -10,6 +10,7 @@ export function useModal() {
 
   const [slug, setSlug] = useState<string>("");
   const [url, setUrl] = useState("");
+  const [newUrl, setNewUrl] = useState("");
   const [submit, setSubmit] = useState(false);
   const [updateable, setUpdateable] = useState(false);
   const [deleteable, setDeleteable] = useState(false);
@@ -53,7 +54,13 @@ export function useModal() {
     }
   };
 
-  const ableDeleteButton = useEffect(() => {
+  // newUrl y url son iguales al inicio. Se actualiza newUrl con el valor del input de editar
+  useEffect(() => {
+    setNewUrl(url);
+  }, [url]);
+
+  // ableDeleteButton
+  useEffect(() => {
     if (slugToDelete.length > 0) {
       setDeleteable(true);
     }
@@ -82,6 +89,13 @@ export function useModal() {
     }
   };
 
+  // ableUpdateButton
+  useEffect(() => {
+    if (newUrl !== url) {
+      setUpdateable(true);
+    }
+  }, [newUrl]);
+
   return {
     modalService,
     slug,
@@ -92,15 +106,15 @@ export function useModal() {
     slugToDelete,
     slugToDeleteId,
     deleteable,
-    ableDeleteButton,
+    newUrl,
     setDeleteable,
     setSlugToDeleteId,
     handleDelete,
     setSlugToDelete,
-    ableUpdate: setUpdateable,
     handleCreate,
     handleRandomize,
     addUrl: setUrl,
     addSlug: setSlug,
+    addNewUrl: setNewUrl,
   };
 }

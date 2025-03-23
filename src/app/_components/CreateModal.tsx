@@ -5,10 +5,10 @@ import ModalOverlay from "@/app/_components/dialogs/ModalOverlay";
 import Modal from "@/app/_components/dialogs/Modal";
 import ModalHeader from "@/app/_components/dialogs/ModalHeader";
 import ModalInputs from "@/app/_components/dialogs/ModalInputs";
-import { useModal } from "@/app/hooks/useModal";
 import ModalFooter from "@/app/_components/dialogs/ModalFooter";
 import RocketIcon from "@/app/_components//icons/RocketIcon";
 import { Button } from "@/app/ui/Button";
+import { useModalContext } from "@/app/context/modalContext";
 
 export default function CreateModal() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function CreateModal() {
     slug,
     submit,
     url,
-  } = useModal();
+  } = useModalContext();
 
   // TODO: Create context provider for modal
   return (

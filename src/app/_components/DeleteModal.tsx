@@ -8,11 +8,11 @@ import ModalHeader from "@/app/_components/dialogs/ModalHeader";
 import DeleteModalInput from "@/app/_components/dialogs/DeleteModalInput";
 
 import { useRouter } from "next/navigation";
-import { useModal } from "@/app/hooks/useModal";
 import { Button } from "@/app/ui/Button";
 import { api } from "@/trpc/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { useModalContext } from "@/app/context/modalContext";
 
 export default function DeleteModal() {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function DeleteModal() {
     submit,
     deleteable,
     error,
-  } = useModal();
+  } = useModalContext();
 
   // Cuando se cargue el componente, se establece el slugToDeleteId
   useEffect(() => {
