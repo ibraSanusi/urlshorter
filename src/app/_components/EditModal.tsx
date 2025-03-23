@@ -30,7 +30,7 @@ export default function EditModal() {
 
   const {
     handleRandomize,
-    handleSubmit,
+    handleCreate,
     addSlug,
     addUrl,
     ableUpdate,
@@ -40,7 +40,7 @@ export default function EditModal() {
 
   return slug && url ? (
     <ModalOverlay onClose={closeModal}>
-      <Modal error={error} handleSubmit={handleSubmit}>
+      <Modal error={error} handleSubmit={handleCreate}>
         <ModalHeader onClose={closeModal} title="Edit link" />
         <ModalInputs
           editMode={true}
