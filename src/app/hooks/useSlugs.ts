@@ -7,9 +7,9 @@ export function useSlugs() {
   const { data: slugs, isLoading, error } = api.slug.getAll.useQuery();
   const mutation = api.slug.delete.useMutation();
 
-  const deleteSlug = (slugId: number) => {
-    if (!slugId) return;
-    mutation.mutate({ slugId });
+  const deleteSlug = (slug: string) => {
+    if (!slug) return;
+    mutation.mutate({ slug });
   };
 
   return { slugs, isLoading, error, deleteSlug };
