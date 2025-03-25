@@ -103,6 +103,23 @@ export const slugRouter = createTRPCRouter({
       return urlAndSlug;
     }),
 
+  getUlrBySlug: protectedProcedure
+    .input(z.object({ slug: z.string().min(1) }))
+    .query(async ({ ctx, input }) => {
+      // Recuperar los slugs y el url y formatear la respuesta
+      const result = await ctx.db.slug.findUnique({
+        include: {
+          link: true, // Carga la relación con la tabla `link`
+        },
+        where: { slug: input.slug },
+      });
+
+      const url = result?.link?.url;
+
+      console.log("Url encontrado para el slug :", input.slug);
+      return url;
+    }),
+
   delete: protectedProcedure
     .input(z.object({ slugId: z.number().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -115,11 +132,13 @@ export const slugRouter = createTRPCRouter({
       return slug;
     }),
 
+  // TODO: Creo que el problema esta en que la relacion es de muchos a muchos y no de uno a uno. Revisar
   update: protectedProcedure
     .input(z.object({ slug: z.string().min(1), url: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
+      console.log({ slugInput: input.slug, urlInput: input.url });
       // Actualizar el link asociado al slug
-      const slug = await ctx.db.slug.update({
+      const updatedSlug = await ctx.db.slug.update({
         include: {
           link: true,
         },
@@ -133,7 +152,7 @@ export const slugRouter = createTRPCRouter({
         },
       });
 
-      console.log("Slug con id :", slug, " eliminado");
-      return slug;
+      console.log("Slug :", updatedSlug, " actualizado a ", input.url);
+      return updatedSlug;
     }),
 });
