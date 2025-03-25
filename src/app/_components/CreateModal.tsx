@@ -8,35 +8,29 @@ import ModalInputs from "@/app/_components/dialogs/ModalInputs";
 import ModalFooter from "@/app/_components/dialogs/ModalFooter";
 import RocketIcon from "@/app/_components//icons/RocketIcon";
 import { Button } from "@/app/ui/Button";
-import { useModalContext } from "@/app/context/modalContext";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 export default function CreateModal() {
-  const router = useRouter();
-
-  const closeModal = () => {
-    router.back();
-  };
-
   const {
-    handleRandomize,
+    closeModal,
+    randomize,
     handleCreate,
-    addSlug,
-    addUrl,
+    setSlug,
+    setUrl,
     error,
     slug,
     submit,
     url,
   } = useModalContext();
 
-  // TODO: Create context provider for modal
   return (
     <ModalOverlay onClose={closeModal}>
       <Modal error={error} handleSubmit={handleCreate}>
         <ModalHeader onClose={closeModal} title="Create new Slug" />
         <ModalInputs
-          addSlug={addSlug}
-          addUrl={addUrl}
-          handleRandomize={handleRandomize}
+          addSlug={setSlug}
+          addUrl={setUrl}
+          handleRandomize={randomize}
           slug={slug}
           url={url}
         />
