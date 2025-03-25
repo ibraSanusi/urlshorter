@@ -8,51 +8,31 @@ import ModalHeader from "@/app/_components/dialogs/ModalHeader";
 import DeleteModalInput from "@/app/_components/dialogs/DeleteModalInput";
 
 import { Button } from "@/app/ui/Button";
-import { api } from "@/trpc/react";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
 
 export default function DeleteModal() {
-  const pathname = usePathname();
-
-  const slugId = parseInt(pathname.split("/").pop() ?? "", 10);
-  console.log({ slugId });
-
-  // Evitar llamadas innecesarias si slugId no es válido
-  const result = slugId
-    ? api.slug.getUlrAndSlugBySlugId.useQuery({ slugId })
-    : { data: null };
-  const { slug, url } = result.data ?? { slug: "", url: "" };
-
   const {
     closeModal,
-    setSlugToDeleteId,
-    setSlugToDelete,
     handleDelete,
-    setUrl,
+    setComfirmedSlugToDelete,
+    slugToDelete,
     submit,
     deleteable,
     error,
   } = useModalContext();
 
-  // Cuando se cargue el componente, se establece el slugToDeleteId
-  useEffect(() => {
-    if (slugId && slug) {
-      setSlugToDeleteId(slugId);
-      setUrl(slug);
-    }
-  }, [slugId, slug]);
-
-  return slug && url ? (
+  return slugToDelete ? (
     <ModalOverlay onClose={closeModal}>
       <Modal error={error} handleSubmit={handleDelete}>
-        <ModalHeader onClose={closeModal} title={`Delete /${slug}`} />
+        <ModalHeader onClose={closeModal} title={`Delete /${slugToDelete}`} />
         <p className="text-md text-red-500">
           Access to the link will be permanently removed. This action cannot be
           undone.
         </p>
-        <DeleteModalInput onChange={setSlugToDelete} slug={slug} />
+        <DeleteModalInput
+          onChange={setComfirmedSlugToDelete}
+          slug={slugToDelete}
+        />
 
         <ModalFooter>
           <Button onClick={closeModal} type="button">
