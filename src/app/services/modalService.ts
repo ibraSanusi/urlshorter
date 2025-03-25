@@ -14,4 +14,7 @@ export interface ModalServiceType {
     mutateAsync: (data: { slug: string; url: string }) => Promise<unknown>;
   };
   delete: () => { mutateAsync: (data: { slugId: number }) => Promise<unknown> };
+  update: () => {
+    mutateAsync: (data: { slug: string; url: string }) => Promise<unknown>;
+  };
 }
