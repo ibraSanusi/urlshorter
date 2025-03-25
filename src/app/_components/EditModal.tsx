@@ -7,54 +7,47 @@ import ModalInputs from "@/app/_components/dialogs/ModalInputs";
 import ModalFooter from "@/app/_components/dialogs/ModalFooter";
 import RocketIcon from "@/app/_components//icons/RocketIcon";
 
-import { useRouter } from "next/navigation";
-import { useModal } from "@/app/hooks/useModal";
 import { Button } from "@/app/ui/Button";
-import { api } from "@/trpc/react";
-import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { useModalContext } from "@/app/contexts/modalContext";
+import { api } from "@/trpc/react";
+import { set } from "zod";
 
 export default function EditModal() {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const slugId = parseInt(pathname.split("/").pop() ?? "", 10);
-
-  console.log({ slugId });
-
-  const result = api.slug.getUlrAndSlugBySlugId.useQuery({ slugId });
-  const { slug, url } = result.data ?? { slug: "", url: "" };
-
-  const closeModal = () => {
-    router.back();
-  };
-
   const {
-    handleRandomize,
-    handleCreate,
-    addSlug,
-    addNewUrl,
-    addUrl,
-    newUrl,
+    randomize,
+    setSlug,
+    setCurrentUrl,
+    closeModal,
+    setOldUrl,
+    handleUpdate,
+    currentUrl,
     updateable,
     error,
-  } = useModal();
+    slugToEdit,
+    submit,
+  } = useModalContext();
 
+  const result = api.slug.getUlrBySlug.useQuery({ slug: slugToEdit });
+  const url = result.data;
+
+  // Cuando se carga el componente se estable una url actual y una url antigua para comparar y asi poder habilitar el boton de guardar
   useEffect(() => {
-    if (url) addUrl(url);
+    setCurrentUrl(url ?? "");
+    setOldUrl(url ?? "");
   }, [url]);
 
-  return slug && url ? (
+  return slugToEdit && currentUrl ? (
     <ModalOverlay onClose={closeModal}>
-      <Modal error={error} handleSubmit={handleCreate}>
+      <Modal error={error} handleSubmit={handleUpdate}>
         <ModalHeader onClose={closeModal} title="Edit link" />
         <ModalInputs
           editMode={true}
-          addSlug={addSlug}
-          addUrl={addNewUrl}
-          handleRandomize={handleRandomize}
-          slug={slug}
-          url={newUrl}
+          addSlug={setSlug}
+          addUrl={setCurrentUrl}
+          handleRandomize={randomize}
+          slug={slugToEdit}
+          url={currentUrl}
         />
 
         <ModalFooter>
@@ -66,7 +59,7 @@ export default function EditModal() {
             className={`bg-secondary/80 ${!updateable ? "cursor-not-allowed opacity-50" : ""}`}
             disabled={!updateable}
           >
-            {updateable ? <span>Loading...</span> : <RocketIcon />}
+            {submit ? <span>Loading...</span> : <RocketIcon />}
             Save
           </Button>
         </ModalFooter>

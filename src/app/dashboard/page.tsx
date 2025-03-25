@@ -1,20 +1,26 @@
-import { auth } from "@/server/auth";
-import { api, HydrateClient } from "@/trpc/server";
+"use client";
+
 import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
 import SearchingInput from "@/app/ui/SearchingInput";
-import LinkCustom from "@/app/ui/LinkCustom";
 import { SlugList } from "@/app/_components/SlugList";
+import { Button } from "@/app/ui/Button";
+import EditModal from "@/app/_components/EditModal";
+import { useModalContext } from "@/app/contexts/modalContext";
+import { useSession } from "next-auth/react";
+import CreateModal from "@/app/_components/CreateModal";
+import DeleteModal from "@/app/_components/DeleteModal";
+import { api } from "@/trpc/react";
 
-export default async function Home() {
-  const session = await auth();
+export default function Home() {
+  const { data: session, status } = useSession();
 
-  if (session?.user) {
-    void api.slug.getAll.prefetch();
-  }
+  // TODO: Refactor to use context and useModal to open the modal
+
+  const { openCreateModal, openedModal } = useModalContext();
 
   return (
-    <HydrateClient>
+    <div>
       <header className="flex border-b-[1px] xl:justify-between xl:px-12 xl:py-8">
         <h1>Slug Shorter</h1>
         <button>
@@ -26,10 +32,16 @@ export default async function Home() {
         <header className="flex xl:justify-between">
           <SearchingInput />
 
-          <LinkCustom title="create_link" href="/dashboard/create">
+          {/* Create button */}
+          <Button
+            title="create_link"
+            onClick={() => {
+              openCreateModal();
+            }}
+          >
             <CrossIcon />
             Create Link
-          </LinkCustom>
+          </Button>
         </header>
 
         {/* Section of main (slug cards) */}
@@ -37,6 +49,11 @@ export default async function Home() {
           {session?.user && <SlugList />}
         </section>
       </main>
-    </HydrateClient>
+
+      {/* Modal */}
+      {openedModal === "create" && <CreateModal />}
+      {openedModal === "edit" && <EditModal />}
+      {openedModal === "delete" && <DeleteModal />}
+    </div>
   );
 }

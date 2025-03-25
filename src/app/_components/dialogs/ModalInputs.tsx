@@ -20,6 +20,7 @@ export default function ModalInputs({
   url,
   editMode = false,
 }: Props) {
+  const isRandomizeDisabled = editMode;
   return (
     <section className="flex h-full gap-4 xl:flex-col xl:justify-between">
       <div className="flex h-full gap-4 xl:flex-col">
@@ -49,7 +50,7 @@ export default function ModalInputs({
               onChange={(e) => addSlug(e.target.value)}
             />
             <Button
-              disabled={editMode}
+              disabled={isRandomizeDisabled}
               onClick={handleRandomize}
               type="button"
               className={`rounded-l-none ${editMode ? "cursor-not-allowed opacity-50" : ""}`}

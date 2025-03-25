@@ -7,15 +7,13 @@ import Modal from "@/app/_components/dialogs/Modal";
 import ModalHeader from "@/app/_components/dialogs/ModalHeader";
 import DeleteModalInput from "@/app/_components/dialogs/DeleteModalInput";
 
-import { useRouter } from "next/navigation";
 import { Button } from "@/app/ui/Button";
 import { api } from "@/trpc/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { useModalContext } from "@/app/context/modalContext";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 export default function DeleteModal() {
-  const router = useRouter();
   const pathname = usePathname();
 
   const slugId = parseInt(pathname.split("/").pop() ?? "", 10);
@@ -27,15 +25,12 @@ export default function DeleteModal() {
     : { data: null };
   const { slug, url } = result.data ?? { slug: "", url: "" };
 
-  const closeModal = () => {
-    router.back();
-  };
-
   const {
+    closeModal,
     setSlugToDeleteId,
     setSlugToDelete,
     handleDelete,
-    addSlug,
+    setUrl,
     submit,
     deleteable,
     error,
@@ -45,7 +40,7 @@ export default function DeleteModal() {
   useEffect(() => {
     if (slugId && slug) {
       setSlugToDeleteId(slugId);
-      addSlug(slug);
+      setUrl(slug);
     }
   }, [slugId, slug]);
 

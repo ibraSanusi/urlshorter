@@ -4,19 +4,18 @@ import "@/styles/globals.css";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { exo2 } from "@/app/ui/fonts";
-import { ModalProvider } from "@/app/context/modalContext";
+import { ModalProvider } from "@/app/contexts/modalContext";
+import { SessionProvider } from "next-auth/react";
 
 export default function DashboardLayout({
   children,
-  modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <div className={`relative ${exo2.className}`}>
       <TRPCReactProvider>
-        <ModalProvider>
-          {children}
-          {modal}
-        </ModalProvider>
+        <SessionProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </SessionProvider>
       </TRPCReactProvider>
     </div>
   );

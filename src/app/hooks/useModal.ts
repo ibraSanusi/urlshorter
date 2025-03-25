@@ -5,20 +5,39 @@ import { useEffect, useState } from "react";
 import { slugGenerator } from "@/app/helpers/slugGenerator";
 
 export function useModal() {
+  const updateMutation = modalService.update();
   const createMutation = modalService.create();
   const deleteMutation = modalService.delete();
 
+  const [oldUrl, setOldUrl] = useState<string>("");
+  const [currentUrl, setCurrentUrl] = useState("");
+
   const [slug, setSlug] = useState<string>("");
   const [url, setUrl] = useState("");
-  const [newUrl, setNewUrl] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
   const [submit, setSubmit] = useState(false);
   const [updateable, setUpdateable] = useState(false);
   const [deleteable, setDeleteable] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const [slugToEdit, setSlugToEdit] = useState<string>("");
   const [slugToDelete, setSlugToDelete] = useState<string>("");
   const [slugToDeleteId, setSlugToDeleteId] = useState<number>();
 
-  const handleRandomize = () => {
+  const [openedModal, setOpenedModal] = useState<
+    "create" | "edit" | "delete" | null
+  >(null);
+
+  const openCreateModal = () => setOpenedModal("create");
+  const openEditModal = (slug: string) => {
+    console.log("useModal", slug);
+    setSlugToEdit(slug);
+    setOpenedModal("edit");
+  };
+  const openDeleteModal = () => setOpenedModal("delete");
+  const closeModal = () => setOpenedModal(null);
+
+  const randomize = () => {
     const newSlug = slugGenerator();
     setSlug(newSlug);
   };
@@ -54,22 +73,6 @@ export function useModal() {
     }
   };
 
-  // newUrl y url son iguales al inicio. Se actualiza newUrl con el valor del input de editar
-  useEffect(() => {
-    setNewUrl(url);
-  }, [url]);
-
-  // ableDeleteButton
-  useEffect(() => {
-    if (slugToDelete.length > 0) {
-      setDeleteable(true);
-    }
-
-    return () => {
-      setDeleteable(false);
-    };
-  }, [slugToDelete]);
-
   const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmit(true);
@@ -89,12 +92,50 @@ export function useModal() {
     }
   };
 
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmit(true);
+    setError(null); // Limpiar errores previos
+
+    try {
+      const slugUpdated = await updateMutation.mutateAsync({
+        slug: slugToEdit,
+        url: currentUrl,
+      });
+
+      console.log({ slug, url, slugUpdated });
+    } catch (error) {
+      console.error("Error updating slug:", error);
+      setError("An error occurred while updating the link.");
+    } finally {
+      setSubmit(false);
+    }
+  };
+
+  // newUrl y url son iguales al inicio. Se actualiza newUrl con el valor del input de editar
+  useEffect(() => {
+    setCurrentUrl(url);
+  }, [url]);
+
+  // ableDeleteButton
+  useEffect(() => {
+    if (slugToDelete.length > 0) {
+      setDeleteable(true);
+    }
+
+    return () => {
+      setDeleteable(false);
+    };
+  }, [slugToDelete]);
+
   // ableUpdateButton
   useEffect(() => {
-    if (newUrl !== url) {
+    if (currentUrl !== oldUrl) {
       setUpdateable(true);
+    } else {
+      setUpdateable(false);
     }
-  }, [newUrl]);
+  }, [currentUrl, oldUrl]);
 
   return {
     modalService,
@@ -106,15 +147,26 @@ export function useModal() {
     slugToDelete,
     slugToDeleteId,
     deleteable,
-    newUrl,
+    currentUrl,
+    openedModal,
+    slugToEdit,
+    oldUrl,
+    handleUpdate,
+    setCurrentUrl,
+    setOldUrl,
+    openCreateModal,
+    openEditModal,
+    openDeleteModal,
+    closeModal,
     setDeleteable,
     setSlugToDeleteId,
     handleDelete,
     setSlugToDelete,
     handleCreate,
-    handleRandomize,
-    addUrl: setUrl,
-    addSlug: setSlug,
-    addNewUrl: setNewUrl,
+    randomize,
+    setUrl,
+    setSlug,
   };
 }
+
+export type UseModalReturnType = ReturnType<typeof useModal>;

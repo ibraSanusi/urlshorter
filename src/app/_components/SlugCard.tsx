@@ -7,6 +7,7 @@ import CopyIcon from "@/app/_components/icons/CopyIcon";
 import Link from "next/link";
 
 import { copyToClipboard } from "@/app/helpers/copyClipboard";
+import { useModalContext } from "@/app/contexts/modalContext";
 
 export function SlugCard({
   id,
@@ -22,6 +23,10 @@ export function SlugCard({
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToCopy = `${baseUrl}/${slug}`;
 
+  const { openEditModal } = useModalContext();
+
+  // console.log("SlugCard", { id, slug, url });
+
   return (
     <section className="flex rounded-lg border p-2 xl:h-[97px] xl:max-w-[680px] xl:flex-col xl:justify-between">
       <header className="flex justify-between">
@@ -31,9 +36,9 @@ export function SlugCard({
           <button onClick={() => copyToClipboard(urlToCopy)}>
             <CopyIcon />
           </button>
-          <Link href={`/dashboard/edit/${id}`}>
+          <button onClick={() => openEditModal(slug)}>
             <SettingIcon />
-          </Link>
+          </button>
           <Link href={`/dashboard/delete/${id}`}>
             <TrashIcon />
           </Link>
