@@ -11,7 +11,6 @@ import { Button } from "@/app/ui/Button";
 import { useEffect } from "react";
 import { useModalContext } from "@/app/contexts/modalContext";
 import { api } from "@/trpc/react";
-import { set } from "zod";
 
 export default function EditModal() {
   const {
