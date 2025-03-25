@@ -121,11 +121,11 @@ export const slugRouter = createTRPCRouter({
     }),
 
   delete: protectedProcedure
-    .input(z.object({ slugId: z.number().min(1) }))
+    .input(z.object({ slug: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
       // Recuperar los slugs y el url y formatear la respuesta
       const slug = await ctx.db.slug.delete({
-        where: { id: input.slugId },
+        where: { slug: input.slug },
       });
 
       console.log("Slug con id :", slug, " eliminado");

@@ -9,9 +9,7 @@ export function useModal() {
   const createMutation = modalService.create();
   const deleteMutation = modalService.delete();
 
-  const [oldUrl, setOldUrl] = useState<string>("");
-  const [currentUrl, setCurrentUrl] = useState("");
-
+  // Create
   const [slug, setSlug] = useState<string>("");
   const [url, setUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +18,13 @@ export function useModal() {
   const [updateable, setUpdateable] = useState(false);
   const [deleteable, setDeleteable] = useState(false);
 
+  // Update
+  const [oldUrl, setOldUrl] = useState<string>("");
+  const [currentUrl, setCurrentUrl] = useState("");
   const [slugToEdit, setSlugToEdit] = useState<string>("");
+
+  // Delete
+  const [comfirmedSlugToDelete, setComfirmedSlugToDelete] = useState("");
   const [slugToDelete, setSlugToDelete] = useState<string>("");
   const [slugToDeleteId, setSlugToDeleteId] = useState<number>();
 
@@ -34,7 +38,10 @@ export function useModal() {
     setSlugToEdit(slug);
     setOpenedModal("edit");
   };
-  const openDeleteModal = () => setOpenedModal("delete");
+  const openDeleteModal = (slug: string) => {
+    setOpenedModal("delete");
+    setSlugToDelete(slug);
+  };
   const closeModal = () => setOpenedModal(null);
 
   const randomize = () => {
@@ -48,20 +55,20 @@ export function useModal() {
     setError(null); // Limpiar errores previos
 
     try {
-      if (slugToDelete.trimEnd() !== slug.trimEnd()) {
+      if (slugToDelete.trimEnd() !== comfirmedSlugToDelete.trimEnd()) {
         setError("The slug does not match.");
         return;
       }
 
-      if (slugToDeleteId === undefined) {
-        setError("The slug ID is not defined.");
-        console.error("The slug ID is not defined.");
+      if (slugToDelete === undefined) {
+        setError("The slug is not defined.");
+        console.error("The slug is not defined.");
       }
 
       const slugDeleted =
-        slugToDeleteId &&
+        slugToDelete &&
         deleteMutation.mutateAsync({
-          slugId: slugToDeleteId,
+          slug: slugToDelete,
         });
 
       console.log({ slug, url, slugDeleted });
@@ -151,6 +158,8 @@ export function useModal() {
     openedModal,
     slugToEdit,
     oldUrl,
+    comfirmedSlugToDelete,
+    setComfirmedSlugToDelete,
     handleUpdate,
     setCurrentUrl,
     setOldUrl,
