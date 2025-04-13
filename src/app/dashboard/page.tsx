@@ -15,9 +15,12 @@ import Link from "next/link";
 import GithubIcon from "../_components/icons/GithubIcon";
 import MoonIcon from "../_components/icons/MoonIcon";
 import SearchIcon from "../_components/icons/SearchIcon";
+import BoxIcon from "../_components/icons/BoxIcon";
+import { useSlugs } from "../hooks/useSlugs";
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const { slugs } = useSlugs();
 
   // TODO: Refactor to use context and useModal to open the modal
 
@@ -54,22 +57,28 @@ export default function Home() {
 
       {/* Main */}
       <main className="flex w-full flex-col gap-4 p-4 xl:flex-col xl:gap-4 xl:px-12 xl:py-8">
-        <section className="flex gap-4 xl:justify-between">
+        <header className="flex gap-4 md:justify-between">
           <SearchingInput />
 
-          <div></div>
+          <div className="flex flex-row gap-4">
+            {/* Pastilla de total de slugs */}
+            <div className="flex flex-row items-center gap-2 rounded-md border-[1px] border-gray-300 p-2">
+              <BoxIcon />
+              <div className="w-max">{slugs?.length} / 30</div>
+            </div>
 
-          {/* Create button */}
-          <Button
-            title="create_link"
-            onClick={() => {
-              openCreateModal();
-            }}
-          >
-            <CrossIcon />
-            <span className="hidden xl:flex">Create Link</span>
-          </Button>
-        </section>
+            {/* Create button */}
+            <Button
+              title="create_link"
+              onClick={() => {
+                openCreateModal();
+              }}
+            >
+              <CrossIcon />
+              <span className="hidden md:flex">Create Link</span>
+            </Button>
+          </div>
+        </header>
 
         {/* Section of main (slug cards) */}
         {session?.user && <SlugList />}
