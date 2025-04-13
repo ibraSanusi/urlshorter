@@ -15,9 +15,9 @@ export function SlugCard({ slug, url }: { slug: string; url: string }) {
   const { openEditModal, openDeleteModal } = useModalContext();
 
   return (
-    <section className="flex rounded-lg border p-2 xl:h-[97px] xl:max-w-[680px] xl:flex-col xl:justify-between">
+    <section className="flex flex-col rounded-lg border p-4 xl:justify-between">
       <header className="flex justify-between">
-        <span>/{slug}</span>
+        <span className="text-lg">/{slug}</span>
         <div className="flex items-center gap-2">
           <span>0 clicks</span>
           <button onClick={() => copyToClipboard(urlToCopy)}>
@@ -31,9 +31,7 @@ export function SlugCard({ slug, url }: { slug: string; url: string }) {
           </button>
         </div>
       </header>
-      <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-        {url}
-      </span>
+      <p className="overflow-hidden text-ellipsis whitespace-nowrap">{url}</p>
     </section>
   );
 }

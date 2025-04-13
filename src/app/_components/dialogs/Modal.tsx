@@ -13,7 +13,7 @@ export default function Modal({ children, handleSubmit, error }: Props) {
         e.stopPropagation();
       }}
       onSubmit={handleSubmit}
-      className="flex h-full w-full gap-10 rounded-lg bg-principal p-8 xl:max-h-[522px] xl:max-w-[513px] xl:flex-col"
+      className="flex h-full max-h-[522px] w-full max-w-[513px] flex-col gap-10 rounded-lg bg-principal p-8"
     >
       {children}
 

@@ -19,6 +19,7 @@ export function useModal() {
   const [deleteable, setDeleteable] = useState(false);
 
   // Update
+  const [editMode, setEditMode] = useState(false);
   const [oldUrl, setOldUrl] = useState<string>("");
   const [currentUrl, setCurrentUrl] = useState("");
   const [slugToEdit, setSlugToEdit] = useState<string>("");
@@ -34,8 +35,8 @@ export function useModal() {
 
   const openCreateModal = () => setOpenedModal("create");
   const openEditModal = (slug: string) => {
-    console.log("useModal", slug);
     setSlugToEdit(slug);
+    setEditMode(true);
     setOpenedModal("edit");
   };
   const openDeleteModal = (slug: string) => {
@@ -159,6 +160,8 @@ export function useModal() {
     slugToEdit,
     oldUrl,
     comfirmedSlugToDelete,
+    editMode,
+    setEditMode,
     setComfirmedSlugToDelete,
     handleUpdate,
     setCurrentUrl,

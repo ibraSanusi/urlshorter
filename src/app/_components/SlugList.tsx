@@ -12,15 +12,9 @@ export function SlugList() {
   if (!slugs?.length) return <p>No slugs found</p>;
 
   return (
-    <section className="grid h-full w-full grid-cols-2 gap-4">
+    <section className="grid h-full w-full grid-cols-1 gap-4 xl:grid-cols-2">
       {slugs.map(({ id, slug, link: { url } }) => (
-        <SlugCard
-          key={id}
-          id={id}
-          slug={slug}
-          url={url}
-          onDelete={deleteSlug}
-        />
+        <SlugCard key={id} slug={slug} url={url} />
       ))}
     </section>
   );

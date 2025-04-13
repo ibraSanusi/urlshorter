@@ -8,9 +8,9 @@ interface Props {
 
 export default function DeleteModalInput({ slug, onChange }: Props) {
   return (
-    <section className="flex h-full gap-4 xl:flex-col xl:justify-between">
-      <div className="flex h-full gap-4 xl:flex-col">
-        <div className="flex xl:flex-col">
+    <section className="flex h-full flex-col justify-between gap-4">
+      <div className="flex h-full flex-col gap-4">
+        <div className="flex flex-col">
           <label htmlFor="destinationLink">Type {slug} to confirm:</label>
           <InputText
             className="placeholder:text-white"

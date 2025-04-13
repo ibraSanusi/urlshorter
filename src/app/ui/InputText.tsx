@@ -9,7 +9,7 @@ const InputText: FC<ComponentProps<"input">> = ({
 }) => {
   return (
     <input
-      className={`items-center gap-2 rounded-lg border-[1px] border-white bg-inherit p-2 focus:outline-none xl:text-sm ${className}`}
+      className={`items-center gap-2 rounded-lg border-[1px] border-white bg-inherit p-2 text-sm focus:outline-none ${className}`}
       type="text"
       id={id}
       placeholder={placeholder}

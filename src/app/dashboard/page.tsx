@@ -10,7 +10,11 @@ import { useModalContext } from "@/app/contexts/modalContext";
 import { useSession } from "next-auth/react";
 import CreateModal from "@/app/_components/CreateModal";
 import DeleteModal from "@/app/_components/DeleteModal";
-import { api } from "@/trpc/react";
+import SlugIcon from "../_components/icons/SlugIcon";
+import Link from "next/link";
+import GithubIcon from "../_components/icons/GithubIcon";
+import MoonIcon from "../_components/icons/MoonIcon";
+import SearchIcon from "../_components/icons/SearchIcon";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -21,16 +25,39 @@ export default function Home() {
 
   return (
     <div>
-      <header className="flex border-b-[1px] xl:justify-between xl:px-12 xl:py-8">
-        <h1>Slug Shorter</h1>
-        <button>
-          <AvatarIcon />
-        </button>
+      {/* Header */}
+      <header className="flex flex-row justify-between border-b-[1px] p-8 xl:justify-between xl:px-12 xl:py-8">
+        <div className="flex items-center gap-2">
+          <SlugIcon />
+          <h1 className="text-xl">Slug</h1>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            href={"https://github.com/ibraSanusi/urlshorter"}
+          >
+            <GithubIcon className="size-6" />
+          </Link>
+          <button className={"cursor-pointer"}>
+            <SearchIcon />
+          </button>
+          <button className={"cursor-pointer"}>
+            <MoonIcon />
+          </button>
+          <button>
+            <AvatarIcon />
+          </button>
+        </div>
       </header>
-      <main className="flex xl:flex-col xl:gap-4 xl:px-12 xl:py-8">
-        {/* Header of main */}
-        <header className="flex xl:justify-between">
+
+      {/* Main */}
+      <main className="flex w-full flex-col gap-4 p-4 xl:flex-col xl:gap-4 xl:px-12 xl:py-8">
+        <section className="flex gap-4 xl:justify-between">
           <SearchingInput />
+
+          <div></div>
 
           {/* Create button */}
           <Button
@@ -40,14 +67,12 @@ export default function Home() {
             }}
           >
             <CrossIcon />
-            Create Link
+            <span className="hidden xl:flex">Create Link</span>
           </Button>
-        </header>
+        </section>
 
         {/* Section of main (slug cards) */}
-        <section className="grid h-full w-full grid-cols-2 gap-4">
-          {session?.user && <SlugList />}
-        </section>
+        {session?.user && <SlugList />}
       </main>
 
       {/* Modal */}

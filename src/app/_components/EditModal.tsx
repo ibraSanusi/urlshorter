@@ -25,6 +25,7 @@ export default function EditModal() {
     error,
     slugToEdit,
     submit,
+    editMode,
   } = useModalContext();
 
   const result = api.slug.getUlrBySlug.useQuery({ slug: slugToEdit });
@@ -41,7 +42,7 @@ export default function EditModal() {
       <Modal error={error} handleSubmit={handleUpdate}>
         <ModalHeader onClose={closeModal} title="Edit link" />
         <ModalInputs
-          editMode={true}
+          editMode={editMode}
           addSlug={setSlug}
           addUrl={setCurrentUrl}
           handleRandomize={randomize}

@@ -7,7 +7,7 @@ interface Props {
 
 export default function ModalHeader({ title, onClose }: Props) {
   return (
-    <header className="flex xl:flex-row xl:items-center xl:justify-between">
+    <header className="flex flex-row items-center justify-between">
       <h2>{title}</h2>
       <button onClick={onClose} type="button" className="hover:cursor-pointer">
         <CloseIcon />

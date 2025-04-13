@@ -2,6 +2,7 @@ import React from "react";
 import InputText from "@/app/ui/InputText";
 import { Button } from "@/app/ui/Button";
 import RandomIcon from "@/app/_components/icons/RandomIcon";
+import LockIcon from "../icons/LockIcon";
 
 interface Props {
   handleRandomize: () => void;
@@ -22,10 +23,10 @@ export default function ModalInputs({
 }: Props) {
   const isRandomizeDisabled = editMode;
   return (
-    <section className="flex h-full gap-4 xl:flex-col xl:justify-between">
-      <div className="flex h-full gap-4 xl:flex-col">
+    <section className="flex h-full flex-col justify-between gap-4">
+      <div className="flex h-full flex-col gap-4">
         {/* Input para la URL */}
-        <div className="flex xl:flex-col">
+        <div className="flex flex-col">
           <label htmlFor="destinationLink">Destination URL:</label>
           <InputText
             className="placeholder:text-white"
@@ -38,9 +39,9 @@ export default function ModalInputs({
         </div>
 
         {/* Input para el slug */}
-        <div className="flex xl:flex-col">
+        <div className="flex flex-col">
           <label htmlFor="shortLink">Short link:</label>
-          <div className="flex xl:flex-row">
+          <div className="flex flex-row">
             <InputText
               placeholder="mylink"
               id="shortLink"
@@ -55,8 +56,14 @@ export default function ModalInputs({
               type="button"
               className={`rounded-l-none ${editMode ? "cursor-not-allowed opacity-50" : ""}`}
             >
-              <RandomIcon />
-              Randomize
+              {editMode ? (
+                <LockIcon />
+              ) : (
+                <>
+                  <RandomIcon />
+                  <span>Randomize</span>
+                </>
+              )}
             </Button>
           </div>
         </div>
