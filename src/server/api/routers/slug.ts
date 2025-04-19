@@ -10,7 +10,6 @@ export const slugRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ slug: z.string().min(1), url: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      console.log("slug y url: " + input.slug + " " + input.url);
       // Buscar el link en la base de datos
       let link = await ctx.db.link.findFirst({
         where: { url: input.url, createdById: ctx.session.user.id },
@@ -32,13 +31,22 @@ export const slugRouter = createTRPCRouter({
       }
 
       // Crear el slug asociado al link
-      return ctx.db.slug.create({
+      const slugCreated = await ctx.db.slug.create({
         data: {
           slug: input.slug,
           createdById: ctx.session.user.id,
           linkId: link.id, // link.id ahora está garantizado
         },
       });
+
+      const slugFormated = await ctx.db.slug.findFirst({
+        include: {
+          link: true, // Carga la relación con la tabla `link`
+        },
+        where: { id: slugCreated.id },
+      });
+
+      return slugFormated;
     }),
 
   getAll: protectedProcedure.query(async ({ ctx }) => {
@@ -50,7 +58,6 @@ export const slugRouter = createTRPCRouter({
       where: { createdById: ctx.session.user.id },
     });
 
-    console.log("Slugs encontrados:", slugs);
     return slugs;
   }),
 
@@ -60,7 +67,6 @@ export const slugRouter = createTRPCRouter({
   getLinkBySlug: publicProcedure
     .input(z.object({ slug: z.string().min(1) })) // Validación de entrada
     .query(async ({ ctx, input }) => {
-      console.log({ input });
       // Recuperar los slugs y el url y formatear la respuesta
       const result = await ctx.db.slug.findUnique({
         where: { slug: input.slug }, // Filtra por el slug
@@ -77,8 +83,6 @@ export const slugRouter = createTRPCRouter({
       if (!result?.link?.url) {
         throw new Error("No se encontró un enlace para este slug.");
       }
-
-      console.log("Slug encontrado:", input.slug);
 
       return result.link.url; // Devuelve solo la URL
     }),
@@ -99,7 +103,6 @@ export const slugRouter = createTRPCRouter({
         slug: result?.slug,
       };
 
-      console.log("Slug encontrado con id :", input.slugId);
       return urlAndSlug;
     }),
 
@@ -116,7 +119,6 @@ export const slugRouter = createTRPCRouter({
 
       const url = result?.link?.url;
 
-      console.log("Url encontrado para el slug :", input.slug);
       return url;
     }),
 
@@ -128,7 +130,6 @@ export const slugRouter = createTRPCRouter({
         where: { slug: input.slug },
       });
 
-      console.log("Slug con id :", slug, " eliminado");
       return slug;
     }),
 
@@ -136,7 +137,6 @@ export const slugRouter = createTRPCRouter({
   update: protectedProcedure
     .input(z.object({ slug: z.string().min(1), url: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      console.log({ slugInput: input.slug, urlInput: input.url });
       // Actualizar el link asociado al slug
       const updatedSlug = await ctx.db.slug.update({
         include: {
@@ -152,7 +152,6 @@ export const slugRouter = createTRPCRouter({
         },
       });
 
-      console.log("Slug :", updatedSlug, " actualizado a ", input.url);
       return updatedSlug;
     }),
 });

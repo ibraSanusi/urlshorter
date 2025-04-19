@@ -3,8 +3,13 @@
 import { modalService } from "@/app/services/modalService";
 import { useEffect, useState } from "react";
 import { slugGenerator } from "@/app/helpers/slugGenerator";
+import { SlugType, useSlugs } from "./useSlugs";
 
 export function useModal() {
+  const { slugs } = useSlugs();
+
+  const [slugList, setSlugList] = useState<SlugType[]>([]);
+  // Modal service
   const updateMutation = modalService.update();
   const createMutation = modalService.create();
   const deleteMutation = modalService.delete();
@@ -71,8 +76,6 @@ export function useModal() {
         deleteMutation.mutateAsync({
           slug: slugToDelete,
         });
-
-      console.log({ slug, url, slugDeleted });
     } catch (error) {
       console.error("Error deleting link and slug:", error);
       setError("An error occurred while deleting the link and slug.");
@@ -91,9 +94,15 @@ export function useModal() {
         slug,
         url,
       });
-      console.log({ slug, url, slugCreated });
+
+      if (slugCreated) {
+        setSlug(""); // Limpiar el campo de slug después de crear
+        setUrl(""); // Limpiar el campo de URL después de crear
+        closeModal(); // Cerrar el modal después de crear
+
+        setSlugList((prev) => [...prev, slugCreated]); // Actualizar la lista de slugs
+      }
     } catch (error) {
-      console.error("Error creating slug:", error);
       setError("An error occurred while creating the link.");
     } finally {
       setSubmit(false);
@@ -111,7 +120,11 @@ export function useModal() {
         url: currentUrl,
       });
 
-      console.log({ slug, url, slugUpdated });
+      if (slugUpdated) {
+        setSlugToEdit(""); // Limpiar el campo de slug después de actualizar
+        setCurrentUrl(""); // Limpiar el campo de URL después de actualizar
+        closeModal(); // Cerrar el modal después de actualizar
+      }
     } catch (error) {
       console.error("Error updating slug:", error);
       setError("An error occurred while updating the link.");
@@ -145,6 +158,13 @@ export function useModal() {
     }
   }, [currentUrl, oldUrl]);
 
+  // Ininicialize slugList with slugs from useSlugs
+  useEffect(() => {
+    if (slugs) {
+      setSlugList(slugs);
+    }
+  }, [slugs]);
+
   return {
     modalService,
     slug,
@@ -161,6 +181,7 @@ export function useModal() {
     oldUrl,
     comfirmedSlugToDelete,
     editMode,
+    slugList,
     setEditMode,
     setComfirmedSlugToDelete,
     handleUpdate,

@@ -22,8 +22,6 @@ export default function Home() {
   const { data: session } = useSession();
   const { slugs } = useSlugs();
 
-  // TODO: Refactor to use context and useModal to open the modal
-
   const { openCreateModal, openedModal } = useModalContext();
 
   return (
