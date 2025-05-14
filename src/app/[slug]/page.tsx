@@ -17,6 +17,11 @@ export default async function Home({ params }: Props) {
   // Hacer la consulta de tRPC en el servidor, sin usar useQuery
   const url = await api.slug.getLinkBySlug({ slug });
 
+  // Si se encontro un enlace, se aumenta el contador de clicks
+  if (url) {
+    await api.slug.increaseClickCount({ slug });
+  }
+
   // Si no se encuentra un enlace, muestra un mensaje adecuado
   if (!url) {
     return (
