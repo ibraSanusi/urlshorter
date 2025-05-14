@@ -5,5 +5,5 @@ import { api } from "@/trpc/react";
 
 export const slugService = {
   getAll: () => api.slug.getAll.useQuery(),
-  delete: (slugId: number) => api.slug.delete.useMutation().mutate({ slugId }),
+  delete: (slug: string) => api.slug.delete.useMutation().mutate({ slug }),
 };
