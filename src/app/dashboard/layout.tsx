@@ -9,7 +9,9 @@ import { SessionProvider } from "next-auth/react";
 
 export default function DashboardLayout({
   children,
-}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className={`relative ${exo2.className}`}>
       <TRPCReactProvider>
