@@ -6,7 +6,7 @@ import { permanentRedirect } from "next/navigation";
 
 export default async function Home({ params }: { params: { slug: string } }) {
   // eslint-disable-next-line @typescript-eslint/await-thenable
-  const { slug } = await params;
+  const { slug } = params;
 
   if (!slug) return;
 
