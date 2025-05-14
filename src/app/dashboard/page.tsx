@@ -3,23 +3,27 @@
 import CrossIcon from "@/app/_components/icons/CrossIcon";
 import AvatarIcon from "@/app/_components/icons/AvatarIcon";
 import SearchingInput from "@/app/ui/SearchingInput";
-import { SlugList } from "@/app/_components/SlugList";
-import { Button } from "@/app/ui/Button";
 import EditModal from "@/app/_components/EditModal";
-import { useModalContext } from "@/app/contexts/modalContext";
-import { useSession } from "next-auth/react";
 import CreateModal from "@/app/_components/CreateModal";
 import DeleteModal from "@/app/_components/DeleteModal";
-import SlugIcon from "../_components/icons/SlugIcon";
+import SlugIcon from "@/app/_components/icons/SlugIcon";
 import Link from "next/link";
-import GithubIcon from "../_components/icons/GithubIcon";
-import MoonIcon from "../_components/icons/MoonIcon";
-import SearchIcon from "../_components/icons/SearchIcon";
-import BoxIcon from "../_components/icons/BoxIcon";
-import { useSlugs } from "../hooks/useSlugs";
+import GithubIcon from "@/app/_components/icons/GithubIcon";
+import MoonIcon from "@/app/_components/icons/MoonIcon";
+import SearchIcon from "@/app/_components/icons/SearchIcon";
+import BoxIcon from "@/app/_components/icons/BoxIcon";
+import { SlugList } from "@/app/_components/SlugList";
+import { Button } from "@/app/ui/Button";
+import { useModalContext } from "@/app/contexts/modalContext";
+import { useSession } from "next-auth/react";
+import { useSlugs } from "@/app/hooks/useSlugs";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const { data: session } = useSession();
+
+  // if (!session?.user) redirect("/auth/login");
+
   const { slugs } = useSlugs();
 
   const { openCreateModal, openedModal } = useModalContext();
