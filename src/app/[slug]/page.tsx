@@ -10,7 +10,7 @@ type Props = {
 
 export default async function Home({ params }: Props) {
   // eslint-disable-next-line @typescript-eslint/await-thenable
-  const { slug } = await params;
+  const { slug } = params;
 
   if (!slug) return;
 
