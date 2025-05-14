@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from "react";
+import { type ComponentProps, type FC } from "react";
 
 const InputText: FC<ComponentProps<"input">> = ({
   placeholder,

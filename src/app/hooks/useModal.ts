@@ -3,7 +3,7 @@
 import { modalService } from "@/app/services/modalService";
 import { useEffect, useState } from "react";
 import { slugGenerator } from "@/app/helpers/slugGenerator";
-import { SlugType, useSlugs } from "./useSlugs";
+import { type SlugType, useSlugs } from "./useSlugs";
 
 export function useModal() {
   const { slugs } = useSlugs();

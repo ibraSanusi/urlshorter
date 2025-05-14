@@ -29,7 +29,7 @@ export default function EditModal() {
   } = useModalContext();
 
   const result = api.slug.getUlrBySlug.useQuery({ slug: slugToEdit });
-  const url = result.data;
+  const url = result?.data;
 
   // Cuando se carga el componente se estable una url actual y una url antigua para comparar y asi poder habilitar el boton de guardar
   useEffect(() => {

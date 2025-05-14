@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext } from "react";
-import { useModal, UseModalReturnType } from "@/app/hooks/useModal";
+import { createContext, type ReactNode, useContext } from "react";
+import { useModal, type UseModalReturnType } from "@/app/hooks/useModal";
 
 // Crear el contexto con un valor inicial undefined
 const ModalContext = createContext<UseModalReturnType | undefined>(undefined);
