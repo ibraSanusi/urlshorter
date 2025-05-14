@@ -16,14 +16,12 @@ export const slugRouter = createTRPCRouter({
       });
 
       // Si el link no existe, se crea
-      if (!link) {
-        link = await ctx.db.link.create({
-          data: {
-            url: input.url,
-            createdById: ctx.session.user.id,
-          },
-        });
-      }
+      link ??= await ctx.db.link.create({
+        data: {
+          url: input.url,
+          createdById: ctx.session.user.id,
+        },
+      });
 
       // Asegurarnos que `link` no es null antes de continuar
       if (!link) {
