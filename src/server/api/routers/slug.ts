@@ -87,6 +87,30 @@ export const slugRouter = createTRPCRouter({
       return result.link.url; // Devuelve solo la URL
     }),
 
+  /**
+   * @description Se obtiene el link de la base de datos a partir del slug
+   */
+  increaseClickCount: publicProcedure
+    .input(z.object({ slug: z.string().min(1) })) // Validación de entrada
+    .query(async ({ ctx, input }) => {
+      // Recuperar los slugs y el url y formatear la respuesta
+      const result = await ctx.db.slug.findUnique({
+        where: { slug: input.slug }, // Filtra por el slug
+      });
+
+      // Si el slug existe se aumenta el contador de clicks
+      if (result) {
+        await ctx.db.slug.update({
+          where: { slug: input.slug },
+          data: {
+            clickCount: result.clickCount + 1, // Aumenta el contador de clicks
+          },
+        });
+      }
+
+      return;
+    }),
+
   getUlrAndSlugBySlugId: protectedProcedure
     .input(z.object({ slugId: z.number().min(1) }))
     .query(async ({ ctx, input }) => {
