@@ -7,9 +7,10 @@ import CopyIcon from "@/app/_components/icons/CopyIcon";
 
 import { copyToClipboard } from "@/app/helpers/copyClipboard";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { NEXT_PUBLIC_BASE_URL } from "@/lib/constants";
 
 export function SlugCard({ slug, url }: { slug: string; url: string }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = NEXT_PUBLIC_BASE_URL;
   const urlToCopy = `${baseUrl}/${slug}`;
 
   const { openEditModal, openDeleteModal } = useModalContext();
