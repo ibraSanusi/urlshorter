@@ -4,9 +4,13 @@ import { api } from "@/trpc/server"; // Importa la API del servidor de tRPC
 import { HydrateClient } from "@/trpc/server"; // Mantén este import si lo necesitas para algo en el cliente
 import { permanentRedirect } from "next/navigation";
 
-export default async function Home({ params }: { params: { slug: string } }) {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   // eslint-disable-next-line @typescript-eslint/await-thenable
-  const { slug } = params;
+  const { slug } = await params;
 
   if (!slug) return;
 
