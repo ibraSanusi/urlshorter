@@ -1,7 +1,3 @@
-Gracias por la aclaración. Aquí tienes el `README.md` completo, bien estructurado, incluyendo todo lo necesario para un proyecto basado en la T3 Stack (`create-t3-app`) y adaptado a tu proyecto **UrlShorter**:
-
----
-
 ````md
 # 🔗 UrlShorter
 
