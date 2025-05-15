@@ -1,29 +1,156 @@
-# Create T3 App
+Gracias por la aclaración. Aquí tienes el `README.md` completo, bien estructurado, incluyendo todo lo necesario para un proyecto basado en la T3 Stack (`create-t3-app`) y adaptado a tu proyecto **UrlShorter**:
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+---
 
-## What's next? How do I make an app with this?
+````md
+# 🔗 UrlShorter
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+**UrlShorter** es un proyecto personal para acortar URLs y organizarlas fácilmente desde un panel. Fue desarrollado con el objetivo de practicar tecnologías modernas como Next.js, Prisma, autenticación con Discord y base de datos PostgreSQL.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## 🚀 Funcionalidades principales
+
+- ✂️ Acorta URLs largas de forma simple y rápida.
+- 👤 Autenticación con Discord (usando NextAuth).
+- 📋 Visualiza todas tus URLs acortadas desde un dashboard.
+- 🧠 Arquitectura full-stack moderna con backend y frontend en Next.js 14.
+- 🌐 Desplegado en Vercel.
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+Este proyecto fue creado con la T3 Stack:
 
 - [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
+- [NextAuth.js](https://next-auth.js.org)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Vercel](https://vercel.com) (para producción)
 
-## Learn More
+---
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 📦 Instalación
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+1. Clona el repositorio:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+git clone https://github.com/tu-usuario/urlshorter.git
+cd urlshorter
+```
+````
 
-## How do I deploy this?
+2. Instala las dependencias:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+npm install
+```
+
+3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
+
+```env
+DATABASE_URL=postgresql://<usuario>:<contraseña>@<host>:<puerto>/<nombre_db>
+NEXTAUTH_SECRET=supersecreto
+NEXTAUTH_URL=http://localhost:3000
+
+DISCORD_CLIENT_ID=tu_client_id
+DISCORD_CLIENT_SECRET=tu_client_secret
+```
+
+4. Genera el cliente de Prisma:
+
+```bash
+npx prisma generate
+```
+
+5. Ejecuta el servidor en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+.
+├── app/                  # Rutas y páginas de Next.js (App Router)
+├── prisma/               # Schema y cliente generado de Prisma
+├── public/               # Archivos estáticos
+├── src/                  # Código fuente (si usas estructura T3)
+│   ├── pages/            # Páginas en caso de usar Pages Router
+│   ├── server/           # Lógica de backend (trpc, auth, db, etc.)
+│   └── components/       # Componentes UI
+├── .env                  # Variables de entorno
+├── README.md
+```
+
+---
+
+## 📌 Tareas pendientes
+
+- [ ] Mostrar número de **vistas** en cada tarjeta de URL.
+- [ ] Añadir botón para **cerrar sesión**.
+- [ ] Mostrar la **card** nueva al crear un slug.
+- [ ] Darle funcionalidad al **buscador** en el dashboard.
+- [ ] Añadir **toasts** para feedback (creado, error, etc.).
+- [ ] Crear un **usuario predeterminado** para uso sin Discord.
+- [ ] Limpieza automática de URLs caducadas (por `expiresAt`).
+- [ ] Mejoras generales de UI/UX y refactor del código.
+
+---
+
+## 🧠 Recursos útiles
+
+Si estás aprendiendo sobre la T3 Stack, aquí tienes algunos recursos:
+
+- [T3 Stack Docs](https://create.t3.gg/)
+- [T3 Discord](https://t3.gg/discord)
+- [Next.js Docs](https://nextjs.org/docs)
+- [Prisma Docs](https://www.prisma.io/docs/)
+- [NextAuth Docs](https://next-auth.js.org/getting-started/introduction)
+- [tRPC Docs](https://trpc.io/docs)
+
+---
+
+## 🚀 Despliegue
+
+Puedes desplegar esta app fácilmente en Vercel:
+
+1. Crea el proyecto en [vercel.com](https://vercel.com).
+2. Añade las variables de entorno del archivo `.env` desde el panel de Vercel.
+3. Haz push a tu rama principal (`main` o `master`) y Vercel se encargará del resto.
+
+Guías de despliegue:
+
+- [Despliegue en Vercel](https://create.t3.gg/en/deployment/vercel)
+- [Despliegue en Netlify](https://create.t3.gg/en/deployment/netlify)
+- [Docker](https://create.t3.gg/en/deployment/docker)
+
+---
+
+## 👤 Autor
+
+Desarrollado por [Tu Nombre](https://github.com/tu-usuario) como proyecto personal para mejorar habilidades en desarrollo full-stack.
+
+---
+
+## 📝 Licencia
+
+Este proyecto es de uso personal y no tiene licencia abierta. Puedes usarlo como inspiración o base para tus propios proyectos.
+
+```
+
+---
+
+Si lo deseas, también puedo prepararte:
+
+- `.env.example`
+- una versión con badges (Vercel, GitHub stars, etc.)
+- documentación más técnica (por ejemplo, sobre las rutas API)
+
+¿Te gustaría algo más?
+```
