@@ -1,1 +1,0 @@
-export const NEXT_PUBLIC_BASE_URL = "localhost:3000";
