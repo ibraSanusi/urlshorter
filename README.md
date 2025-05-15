@@ -135,11 +135,3 @@ Desarrollado por [Tu Nombre](https://github.com/tu-usuario) como proyecto person
 Este proyecto es de uso personal y no tiene licencia abierta. Puedes usarlo como inspiración o base para tus propios proyectos.
 
 ---
-
-Si lo deseas, también puedo prepararte:
-
-- `.env.example`
-- una versión con badges (Vercel, GitHub stars, etc.)
-- documentación más técnica (por ejemplo, sobre las rutas API)
-
-¿Te gustaría algo más?
