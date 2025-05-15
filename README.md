@@ -36,8 +36,6 @@ git clone https://github.com/tu-usuario/urlshorter.git
 cd urlshorter
 ```
 
-````
-
 2. Instala las dependencias:
 
 ```bash
@@ -71,18 +69,16 @@ npm run dev
 
 ## 📁 Estructura del proyecto
 
-```
 .
-├── app/                  # Rutas y páginas de Next.js (App Router)
-├── prisma/               # Schema y cliente generado de Prisma
-├── public/               # Archivos estáticos
-├── src/                  # Código fuente (si usas estructura T3)
-│   ├── pages/            # Páginas en caso de usar Pages Router
-│   ├── server/           # Lógica de backend (trpc, auth, db, etc.)
-│   └── components/       # Componentes UI
-├── .env                  # Variables de entorno
+├── app/ # Rutas y páginas de Next.js (App Router)
+├── prisma/ # Schema y cliente generado de Prisma
+├── public/ # Archivos estáticos
+├── src/ # Código fuente (si usas estructura T3)
+│ ├── pages/ # Páginas en caso de usar Pages Router
+│ ├── server/ # Lógica de backend (trpc, auth, db, etc.)
+│ └── components/ # Componentes UI
+├── .env # Variables de entorno
 ├── README.md
-```
 
 ---
 
@@ -138,15 +134,4 @@ Desarrollado por [Tu Nombre](https://github.com/tu-usuario) como proyecto person
 
 Este proyecto es de uso personal y no tiene licencia abierta. Puedes usarlo como inspiración o base para tus propios proyectos.
 
-```
-
 ---
-
-Si lo deseas, también puedo prepararte:
-
-- `.env.example`
-- una versión con badges (Vercel, GitHub stars, etc.)
-- documentación más técnica (por ejemplo, sobre las rutas API)
-
-¿Te gustaría algo más?
-````
