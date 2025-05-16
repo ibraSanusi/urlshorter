@@ -18,18 +18,26 @@ import { useModalContext } from "@/app/contexts/modalContext";
 import { useSession } from "next-auth/react";
 import { useSlugs } from "@/app/hooks/useSlugs";
 import { redirect } from "next/navigation";
+import { useState } from "react";
+import UserMenu from "../_components/UserMenuModal";
 
 export default function Home() {
   const { data: session } = useSession();
 
+  const [openMenuUser, setOpenMenuUser] = useState(false);
+
   // if (!session?.user) redirect("/auth/login");
+
+  const handleUserMenu = () => {
+    setOpenMenuUser((prev) => !prev);
+  };
 
   const { slugs } = useSlugs();
 
   const { openCreateModal, openedModal } = useModalContext();
 
   return (
-    <div>
+    <div className="relative w-screen">
       {/* Header */}
       <header className="flex flex-row justify-between border-b-[1px] p-8 xl:justify-between xl:px-12 xl:py-8">
         <div className="flex items-center gap-2">
@@ -51,7 +59,11 @@ export default function Home() {
           <button className={"cursor-pointer"}>
             <MoonIcon />
           </button>
-          <button>
+          <button
+            onClick={() => {
+              handleUserMenu();
+            }}
+          >
             <AvatarIcon />
           </button>
         </div>
@@ -90,6 +102,8 @@ export default function Home() {
       {openedModal === "create" && <CreateModal />}
       {openedModal === "edit" && <EditModal />}
       {openedModal === "delete" && <DeleteModal />}
+
+      {openMenuUser && <UserMenu />}
     </div>
   );
 }
