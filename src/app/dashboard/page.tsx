@@ -36,7 +36,7 @@ export default function Home() {
   const { openCreateModal, openedModal } = useModalContext();
 
   return (
-    <div className="relative w-screen">
+    <div className="relative w-full">
       {/* Header */}
       <header className="flex flex-row justify-between border-b-[1px] p-8 xl:justify-between xl:px-12 xl:py-8">
         <div className="flex items-center gap-2">
