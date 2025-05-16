@@ -17,7 +17,6 @@ import { Button } from "@/app/ui/Button";
 import { useModalContext } from "@/app/contexts/modalContext";
 import { useSession } from "next-auth/react";
 import { useSlugs } from "@/app/hooks/useSlugs";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import UserMenu from "../_components/UserMenuModal";
 
