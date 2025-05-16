@@ -11,7 +11,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Solo proteger la ruta /chats
 export const config = {
   matcher: ["/dashboard", "/dashboard/:path*"],
 };
