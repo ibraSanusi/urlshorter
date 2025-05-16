@@ -4,7 +4,6 @@
 import { useSlugs } from "@/app/hooks/useSlugs";
 import { SlugCard } from "@/app/_components/SlugCard";
 import { useModal } from "../hooks/useModal";
-import { useEffect } from "react";
 
 export function SlugList() {
   const { isLoading, error } = useSlugs();
