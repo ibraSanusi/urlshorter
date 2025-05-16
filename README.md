@@ -70,15 +70,16 @@ npm run dev
 ## 📁 Estructura del proyecto
 
 .
-├── app/ # Rutas y páginas de Next.js (App Router)
-├── prisma/ # Schema y cliente generado de Prisma
-├── public/ # Archivos estáticos
-├── src/ # Código fuente (si usas estructura T3)
-│ ├── pages/ # Páginas en caso de usar Pages Router
-│ ├── server/ # Lógica de backend (trpc, auth, db, etc.)
-│ └── components/ # Componentes UI
-├── .env # Variables de entorno
+├── app/                  # Rutas y páginas de Next.js (App Router)
+├── prisma/               # Schema y cliente generado de Prisma
+├── public/               # Archivos estáticos
+├── src/                  # Código fuente (si usas estructura T3)
+│   ├── pages/            # Páginas en caso de usar Pages Router
+│   ├── server/           # Lógica de backend (trpc, auth, db, etc.)
+│   └── components/       # Componentes UI
+├── .env                  # Variables de entorno
 ├── README.md
+
 
 ---
 
