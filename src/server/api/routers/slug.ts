@@ -144,6 +144,22 @@ export const slugRouter = createTRPCRouter({
       return url;
     }),
 
+  getClicks: protectedProcedure
+    .input(z.object({ slug: z.string().min(1) }))
+    .query(async ({ ctx, input }) => {
+      // Recuperar las veces que se le ha dado click a ese url o slug
+      const clickCount = await ctx.db.slug.findUnique({
+        select: {
+          clickCount: true,
+        },
+        where: { slug: input.slug },
+      });
+
+      console.log({ clickCount });
+
+      return clickCount;
+    }),
+
   delete: protectedProcedure
     .input(z.object({ slug: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {

@@ -7,10 +7,17 @@ import CopyIcon from "@/app/_components/icons/CopyIcon";
 
 import { copyToClipboard } from "@/app/helpers/copyClipboard";
 import { useModalContext } from "@/app/contexts/modalContext";
+import { slugService } from "../services/slugService";
 
 export function SlugCard({ slug, url }: { slug: string; url: string }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToCopy = `${baseUrl}/${slug}`;
+
+  const { getClicks } = slugService;
+  const { data: clickCount } = getClicks(slug);
+  const clicks = clickCount?.clickCount ?? 0;
+
+  console.log({ clicks });
 
   const { openEditModal, openDeleteModal } = useModalContext();
 
@@ -19,7 +26,7 @@ export function SlugCard({ slug, url }: { slug: string; url: string }) {
       <header className="flex justify-between">
         <span className="text-lg">/{slug}</span>
         <div className="flex items-center gap-2">
-          <span>0 clicks</span>
+          {clicks && <span>{clicks} clicks</span>}
           <button onClick={() => copyToClipboard(urlToCopy)}>
             <CopyIcon />
           </button>
