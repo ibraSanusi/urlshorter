@@ -17,11 +17,18 @@ import { Button } from "@/app/ui/Button";
 import { useModalContext } from "@/app/contexts/modalContext";
 import { useSession } from "next-auth/react";
 import { useSlugs } from "@/app/hooks/useSlugs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserMenu from "../_components/UserMenuModal";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { data: session } = useSession();
+
+  const router = useRouter();
+
+  if (!session) {
+    router.push("/auth/login");
+  }
 
   const [openMenuUser, setOpenMenuUser] = useState(false);
 
@@ -34,6 +41,8 @@ export default function Home() {
   const { slugs } = useSlugs();
 
   const { openCreateModal, openedModal } = useModalContext();
+
+  if (!session) return <div>Loading...</div>;
 
   return (
     <div className="relative w-full">
