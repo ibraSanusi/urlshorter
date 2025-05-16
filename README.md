@@ -46,11 +46,11 @@ npm install
 
 ```env
 DATABASE_URL=postgresql://<usuario>:<contraseña>@<host>:<puerto>/<nombre_db>
-NEXTAUTH_SECRET=supersecreto
-NEXTAUTH_URL=http://localhost:3000
+AUTH_SECRET=supersecreto
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
-DISCORD_CLIENT_ID=tu_client_id
-DISCORD_CLIENT_SECRET=tu_client_secret
+AUTH_DISCORD_ID=tu_client_id
+AUTH_DISCORD_SECRET=tu_client_secret
 ```
 
 4. Genera el cliente de Prisma:
@@ -68,17 +68,18 @@ npm run dev
 ---
 
 ## 📁 Estructura del proyecto
-
+```
 .
-├── app/ # Rutas y páginas de Next.js (App Router)
-├── prisma/ # Schema y cliente generado de Prisma
-├── public/ # Archivos estáticos
-├── src/ # Código fuente (si usas estructura T3)
-│ ├── pages/ # Páginas en caso de usar Pages Router
-│ ├── server/ # Lógica de backend (trpc, auth, db, etc.)
-│ └── components/ # Componentes UI
-├── .env # Variables de entorno
+├── app/                  # Rutas y páginas de Next.js (App Router)
+├── prisma/               # Schema y cliente generado de Prisma
+├── public/               # Archivos estáticos
+├── src/                  # Código fuente (si usas estructura T3)
+│   ├── pages/            # Páginas en caso de usar Pages Router
+│   ├── server/           # Lógica de backend (trpc, auth, db, etc.)
+│   └── components/       # Componentes UI
+├── .env                  # Variables de entorno
 ├── README.md
+```
 
 ---
 
