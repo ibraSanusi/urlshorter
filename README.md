@@ -68,7 +68,7 @@ npm run dev
 ---
 
 ## 📁 Estructura del proyecto
-
+```
 .
 ├── app/                  # Rutas y páginas de Next.js (App Router)
 ├── prisma/               # Schema y cliente generado de Prisma
@@ -79,7 +79,7 @@ npm run dev
 │   └── components/       # Componentes UI
 ├── .env                  # Variables de entorno
 ├── README.md
-
+```
 
 ---
 
