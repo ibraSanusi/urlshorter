@@ -96,7 +96,7 @@ npm run dev
 - [ ] Añadir usuario predeterminado para que la gente lo use sin necesidad de iniciar con su Discord  
 - [ ] Añadir la sesión a una variable de contexto o global tipo Zustand  
 - [ ] Añadir ruta `settings` para eliminar cuenta o exportar los links  
-- [ ] Mejor UX de la card del slug: mostrar un placeholder hasta que se recuperen los datos de la base de datos (igual con otros componentes)  
+- [ ] Mejor UX de la card del slug: mostrar un placeholder hasta que se recuperen los datos de la base de datos (igual con otros componentes)
 
 
 ---
