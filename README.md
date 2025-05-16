@@ -85,14 +85,19 @@ npm run dev
 
 ## 📌 Tareas pendientes
 
-- [ ] Mostrar número de **vistas** en cada tarjeta de URL.
-- [ ] Añadir botón para **cerrar sesión**.
-- [ ] Mostrar la **card** nueva al crear un slug.
-- [ ] Darle funcionalidad al **buscador** en el dashboard.
-- [ ] Añadir **toasts** para feedback (creado, error, etc.).
-- [ ] Crear un **usuario predeterminado** para uso sin Discord.
-- [ ] Limpieza automática de URLs caducadas (por `expiresAt`).
-- [ ] Mejoras generales de UI/UX y refactor del código.
+## ✅ Completadas
+- [x] Mostrar vistas a la URL en el card  
+- [x] Añadir botón para cerrar sesión  
+
+## 🔧 Pendientes
+- [ ] Mostrar la card nueva cuando se cree un nuevo slug  
+- [ ] Darle funcionalidad al buscador en el dashboard  
+- [ ] Añadir Toasts  
+- [ ] Añadir usuario predeterminado para que la gente lo use sin necesidad de iniciar con su Discord  
+- [ ] Añadir la sesión a una variable de contexto o global tipo Zustand  
+- [ ] Añadir ruta `settings` para eliminar cuenta o exportar los links  
+- [ ] Mejor UX de la card del slug: mostrar un placeholder hasta que se recuperen los datos de la base de datos (igual con otros componentes)  
+
 
 ---
 
